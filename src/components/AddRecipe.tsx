@@ -1,8 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {RouteProp} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 
 import {
   Button,
@@ -16,34 +14,8 @@ import {
 } from 'react-native';
 import DBHelper from '../recipes/dbHelper';
 import DocumentPicker from 'react-native-document-picker';
-import Recipe from '../classes/Recipe';
 
-type RootStackParamList = {
-  Home: undefined;
-  AddRecipe: {
-    newIngredient?: string;
-    updatedIngredient?: string;
-    index?: number;
-    recipeToEdit?: Recipe;
-  };
-  AddIngredient: {
-    ingredient?: string;
-    index?: number;
-  };
-};
-
-type AddRecipeScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'AddRecipe'
->;
-type AddRecipeScreenRouteProp = RouteProp<RootStackParamList, 'AddRecipe'>;
-
-type Props = {
-  navigation: AddRecipeScreenNavigationProp;
-  route: AddRecipeScreenRouteProp;
-};
-
-const AddRecipe = ({navigation, route}: Props) => {
+const AddRecipe = ({navigation, route}) => {
   const recipeToEdit = route.params?.recipeToEdit;
 
   // initialize state using route.params.recipeToEdit if it exists

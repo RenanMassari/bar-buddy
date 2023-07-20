@@ -1,7 +1,6 @@
 import SQLite, {SQLiteDatabase, Transaction} from 'react-native-sqlite-storage';
 
 const database_name = 'recipes.db';
-const database_version = '1.0';
 const database_displayname = 'Recipes SQLite Database';
 const database_size = 200000;
 
@@ -15,7 +14,6 @@ export default class DBHelper {
       SQLite.openDatabase(
         {
           name: database_name,
-          version: database_version,
           displayName: database_displayname,
           size: database_size,
         },
@@ -54,18 +52,10 @@ export default class DBHelper {
       );`;
 
       this.db.transaction((tx: Transaction) => {
-        tx.executeSql(
-          query,
-          [],
-          () => {
-            console.log('Table created');
-            resolve();
-          },
-          (_, error: Error) => {
-            console.log(`Table not created: ${error.message}`);
-            reject(error);
-          },
-        );
+        tx.executeSql(query, [], () => {
+          console.log('Table created');
+          resolve();
+        });
       });
     });
   }
@@ -92,10 +82,6 @@ export default class DBHelper {
           () => {
             console.log('Recipe inserted');
             resolve();
-          },
-          (_, error: Error) => {
-            console.log(`Recipe not inserted: ${error.message}`);
-            reject(error);
           },
         );
       });
@@ -126,10 +112,6 @@ export default class DBHelper {
             console.log('Recipe updated');
             resolve();
           },
-          (_, error: Error) => {
-            console.log(`Recipe not updated: ${error.message}`);
-            reject(error);
-          },
         );
       });
     });
@@ -145,46 +127,38 @@ export default class DBHelper {
       const query = `SELECT * FROM recipes;`;
 
       this.db.transaction((tx: Transaction) => {
-        tx.executeSql(
-          query,
-          [],
-          (_, result) => {
-            const len = result.rows.length;
-            const recipes: Recipe[] = [];
-            for (let i = 0; i < len; i++) {
-              const row = result.rows.item(i);
-              const {
-                id,
-                title,
-                description,
-                image,
-                ingredients,
-                instructions,
-                glass,
-                garnish,
-                category,
-                alcohol,
-              } = row;
-              recipes.push({
-                id,
-                title,
-                description,
-                image,
-                ingredients,
-                instructions,
-                glass,
-                garnish,
-                category,
-                alcohol,
-              });
-            }
-            resolve(recipes);
-          },
-          (_, error: Error) => {
-            console.log(`Recipes not retrieved: ${error.message}`);
-            reject(error);
-          },
-        );
+        tx.executeSql(query, [], (_, result) => {
+          const len = result.rows.length;
+          const recipes: Recipe[] = [];
+          for (let i = 0; i < len; i++) {
+            const row = result.rows.item(i);
+            const {
+              id,
+              title,
+              description,
+              image,
+              ingredients,
+              instructions,
+              glass,
+              garnish,
+              category,
+              alcohol,
+            } = row;
+            recipes.push({
+              id,
+              title,
+              description,
+              image,
+              ingredients,
+              instructions,
+              glass,
+              garnish,
+              category,
+              alcohol,
+            });
+          }
+          resolve(recipes);
+        });
       });
     });
   }
@@ -199,18 +173,10 @@ export default class DBHelper {
       const query = `DELETE FROM recipes WHERE id = ?;`;
 
       this.db.transaction((tx: Transaction) => {
-        tx.executeSql(
-          query,
-          [id],
-          () => {
-            console.log('Recipe deleted');
-            resolve();
-          },
-          (_, error: Error) => {
-            console.log(`Recipe not deleted: ${error.message}`);
-            reject(error);
-          },
-        );
+        tx.executeSql(query, [id], () => {
+          console.log('Recipe deleted');
+          resolve();
+        });
       });
     });
   }

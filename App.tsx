@@ -27,7 +27,7 @@ const Stack = createStackNavigator();
 const dbHelper = new DBHelper();
 dbHelper
   .initDB()
-  .then(db => {
+  .then(() => {
     console.log('Database initialized');
 
     // Insert initial recipes from JSON to database
