@@ -16,10 +16,21 @@ interface Recipe {
   alcohol: string | null;
 }
 
+interface RecentProps {
+  searchQuery: string;
+}
+
 const numColumns = 2;
 const cardWidth = (Dimensions.get('window').width * 0.9) / numColumns;
 
-const RecentTab: React.FC = () => {
+const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
+  const filteredRecipes = recipes.filter(recipe => {
+    console.log(`Recipe: `, recipe.title);
+    return (
+      recipe.title &&
+      recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
       title={item.title}
@@ -34,7 +45,7 @@ const RecentTab: React.FC = () => {
       <Text style={styles.title}>Recent</Text>
       <FlatList
         contentContainerStyle={styles.list}
-        data={recipes}
+        data={filteredRecipes}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
         numColumns={numColumns}

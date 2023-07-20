@@ -12,11 +12,12 @@ import Recent from './src/components/Recent';
 
 const App = () => {
   const [activeHeader, setActiveHeader] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const renderContent = () => {
     switch (activeHeader) {
       case 0:
-        return <Recent />;
+        return <Recent searchQuery={searchQuery} />;
       case 1:
         return <Text>Content 2</Text>;
       case 2:
@@ -38,7 +39,12 @@ const App = () => {
           <Text style={styles.title}>BarBuddy</Text>
           <Image source={require('./src/assets/logo.png')} />
         </TouchableOpacity>
-        <TextInput style={styles.searchBox} placeholder="Search..." />
+        <TextInput
+          style={styles.searchBox}
+          placeholder="Search..."
+          onChangeText={text => setSearchQuery(text)}
+          value={searchQuery}
+        />
       </View>
       <View style={styles.bottomSection}>
         <View style={styles.headerContainer}>
@@ -60,7 +66,10 @@ const App = () => {
             ),
           )}
         </View>
-        <View style={styles.contentContainer}>{renderContent()}</View>
+        <View style={styles.contentContainer}>
+          {/*<Recent searchQuery={searchQuery} />*/}
+          {renderContent()}
+        </View>
       </View>
     </View>
   );
