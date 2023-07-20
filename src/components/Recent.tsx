@@ -5,19 +5,6 @@ import {useNavigation} from '@react-navigation/native';
 import RecipeCard from './RecipeCard';
 import DBHelper from '../recipes/dbHelper'; // Update this path to your DBHelper.ts file
 
-interface Recipe {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  ingredients: [];
-  instructions: string;
-  glass: string;
-  garnish: string;
-  category: string | null;
-  alcohol: string | null;
-}
-
 interface RecentProps {
   searchQuery: string;
 }
@@ -43,7 +30,7 @@ const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
         })
         .catch(error => console.error('Error fetching recipes:', error));
     });
-  });
+  }, []);
 
   const filteredRecipes = recipes.filter(recipe => {
     return (

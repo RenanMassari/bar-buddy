@@ -5,6 +5,8 @@ const database_version = '1.0';
 const database_displayname = 'Recipes SQLite Database';
 const database_size = 200000;
 
+import Recipe from '../classes/Recipe';
+
 export default class DBHelper {
   db: SQLiteDatabase | null = null;
 
