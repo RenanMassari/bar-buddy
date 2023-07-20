@@ -7,11 +7,9 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
-  TouchableOpacity,
-  PermissionsAndroid,
 } from 'react-native';
 
-import DocumentPicker, {types} from 'react-native-document-picker';
+import DocumentPicker from 'react-native-document-picker';
 
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -95,6 +93,30 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     setDisplayCount(prevCount => prevCount + 6);
   };
 
+  // Insert the recipes to the database
+  const insertRecipesToDB = async (recipes: Recipe[]) => {
+    try {
+      await dbHelper.initDB();
+      for (const recipe of recipes) {
+        if (!recipe || !recipe.instructions || !recipe.title) {
+          continue;
+        }
+        await dbHelper.insertRecipe(
+          Date.now(),
+          recipe.title,
+          recipe.image,
+          JSON.stringify(recipe.ingredients),
+          recipe.instructions,
+        );
+      }
+      const data = await dbHelper.getAllRecipes();
+      setRecipes(data);
+    } catch (error) {
+      console.error('Error inserting recipes:', error);
+    }
+  };
+
+  // Import recipes from file and insert to database
   const importRecipes = async () => {
     try {
       const response = await DocumentPicker.pick({
@@ -102,19 +124,14 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
         type: 'application/json',
       });
 
-      console.log(response);
-
       // Read the file
       const fileContent = await RNFS.readFile(response[0].uri, 'utf8');
 
       // Parse it as JSON
       const jsonContent = JSON.parse(fileContent);
 
-      setFileResponse(jsonContent);
-
-      // TODO: Insert the recipes to the database
-
-      console.log(fileResponse); // this will print the parsed JSON content
+      // Insert the recipes to the database
+      await insertRecipesToDB(jsonContent);
     } catch (err) {
       console.log(err);
     }

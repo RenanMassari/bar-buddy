@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
 import ImagePicker from 'react-native-image-crop-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import {
   ScrollView,
@@ -16,12 +18,25 @@ import {
 import DBHelper from '../recipes/dbHelper';
 import DocumentPicker from 'react-native-document-picker';
 
-const AddRecipe = ({navigation, route}) => {
+type RootStackParamList = {
+  Home: undefined;
+  AddRecipe: { newIngredient?: string; updatedIngredient?: string; index?: number };
+};
+
+type AddRecipeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddRecipe'>;
+type AddRecipeScreenRouteProp = RouteProp<RootStackParamList, 'AddRecipe'>;
+
+type Props = {
+  navigation: AddRecipeScreenNavigationProp;
+  route: AddRecipeScreenRouteProp;
+};
+
+const AddRecipe = ({navigation, route}: Props) => {
   const [title, setTitle] = useState('');
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState<string[]>([]);
   const [instructionStep, setInstructionStep] = useState('');
-  const [instructions, setInstructions] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+  const [instructions, setInstructions] = useState<string[]>([]);
+  const [editIndex, setEditIndex] = useState<number | null>(null);
   const [image, setImage] = useState('');
   const [imageUri, setImageUri] = useState('');
 
@@ -32,15 +47,21 @@ const AddRecipe = ({navigation, route}) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       if (route.params?.newIngredient) {
-        setIngredients(prevIngredients => [
-          ...prevIngredients,
-          route.params.newIngredient,
-        ]);
+        setIngredients(prevIngredients => {
+          if (route.params.newIngredient) {
+            return [...prevIngredients, route.params.newIngredient];
+          }
+          return prevIngredients;
+        });
         navigation.setParams({newIngredient: undefined});
       } else if (route.params?.updatedIngredient !== undefined) {
         setIngredients(prevIngredients => {
           const newIngredients = [...prevIngredients];
-          newIngredients[route.params.index] = route.params.updatedIngredient;
+          if (route.params.index !== undefined) {
+            if (route.params.updatedIngredient !== undefined && route.params.index !== undefined) {
+              newIngredients[route.params.index] = route.params.updatedIngredient;
+            }
+          }
           return newIngredients;
         });
         navigation.setParams({updatedIngredient: undefined, index: undefined});
@@ -55,16 +76,23 @@ const AddRecipe = ({navigation, route}) => {
   ]);
 
   const handleAddIngredient = () => {
-    navigation.navigate('AddIngredient');
+    navigation.navigate('AddIngredient', {});
   };
-
-  const handleEditIngredient = (ingredient, index) => {
-    navigation.navigate('AddIngredient', {ingredient, index});
+  
+  const handleEditIngredient = (ingredient: string, index: number) => {
+    navigation.navigate('AddIngredient', { ingredient, index });
   };
 
   const addInstructionStep = () => {
     if (editIndex !== null) {
-      const updatedInstructions = [...instructions];
+      const updateInstruction = (instructionStep: string) => {
+        if (editIndex !== null) {
+          const updatedInstructions: string[] = [...instructions];
+          updatedInstructions[editIndex] = instructionStep;
+          setInstructions(updatedInstructions);
+          setEditIndex(null);
+        }
+      };
       updatedInstructions[editIndex] = instructionStep;
       setInstructions(updatedInstructions);
       setEditIndex(null);

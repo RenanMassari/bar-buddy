@@ -35,11 +35,8 @@ const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
   </View>
 );
 
-const expandImage = imageSource => {
-  console.log(imageSource);
-};
 
-const DetailedView = ({route}) => {
+const DetailedView = ({route}: {route: any}) => {
   const {item} = route.params;
 
   const ingredients = JSON.parse(item.ingredients);
