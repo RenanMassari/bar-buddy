@@ -42,12 +42,7 @@ const AddRecipe = ({navigation, route}: Props) => {
   const [instructionStep, setInstructionStep] = useState('');
   const [instructions, setInstructions] = useState<string[]>([]);
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [image, setImage] = useState('');
   const [imageUri, setImageUri] = useState('');
-
-  // Keeps track of which step of the instructions the user is on
-  const [step, setStep] = useState(2);
-  const instructionsInputRef = useRef();
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -63,10 +58,7 @@ const AddRecipe = ({navigation, route}: Props) => {
         setIngredients(prevIngredients => {
           const newIngredients = [...prevIngredients];
           if (route.params.index !== undefined) {
-            if (
-              route.params.updatedIngredient !== undefined &&
-              route.params.index !== undefined
-            ) {
+            if (route.params.updatedIngredient !== undefined) {
               newIngredients[route.params.index] =
                 route.params.updatedIngredient;
             }

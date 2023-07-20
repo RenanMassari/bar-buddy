@@ -97,9 +97,14 @@ const MainApp = () => {
       case 1:
         return <Recent searchQuery={searchQuery} />;
       case 2:
-        return <Text>Content 3</Text>;
+        return <Text>Favourites</Text>;
       case 3:
-        return <Text>Content 4</Text>;
+        return (
+          <>
+            <Text>Training</Text>
+            <Image source={require('./src/assets/placeholder_training.png')} />
+          </>
+        );
       default:
         return <Text>Content 1</Text>;
     }
