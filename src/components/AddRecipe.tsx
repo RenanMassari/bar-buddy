@@ -55,6 +55,7 @@ const AddRecipe = ({navigation, route}: Props) => {
   const [imageUri, setImageUri] = useState(recipeToEdit?.image || '');
 
   const [instructionStep, setInstructionStep] = useState('');
+  const instructionStepInputRef = useRef<TextInput>(null);
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [stepButtonName, setStepButtonName] = useState('Add Step');
 
@@ -107,6 +108,11 @@ const AddRecipe = ({navigation, route}: Props) => {
       setInstructions([...instructions, instructionStep]);
     }
     setInstructionStep('');
+
+    // After adding a step, refocus on the input field.
+    if (instructionStepInputRef.current) {
+      instructionStepInputRef.current.focus();
+    }
   };
 
   const editInstructionStep = (index: number) => {
@@ -165,14 +171,14 @@ const AddRecipe = ({navigation, route}: Props) => {
       });
       setImageUri(response[0].uri);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 100}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 75}
       style={styles.container}>
       <ScrollView style={styles.container}>
         <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
@@ -226,15 +232,6 @@ const AddRecipe = ({navigation, route}: Props) => {
             </Text>
           </TouchableOpacity>
         ))}
-        <TextInput
-          placeholder="Add a step"
-          multiline
-          value={instructionStep}
-          onChangeText={setInstructionStep}
-          style={styles.input}
-          onSubmitEditing={addInstructionStep}
-          blurOnSubmit={false}
-        />
         <View style={styles.buttonContainer}>
           <Button
             title={'Delete Last Step'}
@@ -244,6 +241,15 @@ const AddRecipe = ({navigation, route}: Props) => {
           <Button title={stepButtonName} onPress={addInstructionStep} />
           <Button title="Submit" onPress={handleSubmit} />
         </View>
+        <TextInput
+          placeholder="Add a step"
+          value={instructionStep}
+          onChangeText={setInstructionStep}
+          style={styles.input}
+          onSubmitEditing={addInstructionStep}
+          blurOnSubmit={false}
+          ref={instructionStepInputRef}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -284,7 +290,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 40,
+    marginTop: 10,
+    borderTopColor: 'gray',
+    borderTopWidth: 1,
+    paddingTop: 10,
   },
 });
 

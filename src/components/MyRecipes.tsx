@@ -115,7 +115,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
       title={item.title}
-      onPress={() => navigation.navigate('DetailedView', {item})}
+      onPress={() => navigation.navigate('DetailedView', {item, onShare})}
       image={item.image}
       cardWidth={cardWidth}
       onEdit={() => {

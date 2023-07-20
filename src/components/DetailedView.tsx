@@ -1,3 +1,5 @@
+// noinspection TypeScriptValidateTypes
+
 import React, {useState} from 'react';
 import {
   View,
@@ -6,12 +8,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-  Button,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useNavigation} from '@react-navigation/native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {NativeStackNavigationProp} from 'react-native-screens/native-stack';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -38,8 +40,8 @@ const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
 );
 
 const DetailedView = ({route}: {route: any}) => {
-  const navigation = useNavigation();
-  const {item} = route.params;
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
+  const {item, onShare} = route.params;
 
   const ingredients = JSON.parse(item.ingredients);
 
@@ -47,12 +49,20 @@ const DetailedView = ({route}: {route: any}) => {
 
   return (
     <View style={[styles.container]}>
-      <Icon
-        name="edit"
-        size={30}
-        style={styles.editButton}
-        onPress={() => navigation.navigate('AddRecipe', {recipeToEdit: item})}
-      />
+      <View style={styles.iconsContainer}>
+        <Icon
+          name="edit"
+          size={30}
+          style={styles.icon}
+          onPress={() => navigation.navigate('AddRecipe', {recipeToEdit: item})}
+        />
+        <Icon
+          name="share-alt"
+          size={30}
+          style={styles.icon}
+          onPress={() => onShare(item)}
+        />
+      </View>
       <Text style={styles.title}>{item.title}</Text>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Image style={styles.image} source={{uri: item.image}} />
@@ -97,6 +107,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
+  iconsContainer: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    // flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginRight: 10,
+  },
+  icon: {
+    margin: 10,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -114,11 +135,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     lineHeight: 24,
-  },
-  editButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
   },
 });
 
