@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
-import {useIsFocused} from '@react-navigation/native';
+
 import {
   ScrollView,
   View,
@@ -84,9 +84,16 @@ const AddRecipe = ({navigation, route}) => {
     await dbHelper.initDB();
 
     const ingredientsString = JSON.stringify(ingredients);
+    const instructionsString = instructions.join('\n'); // Convert instructions to a string
 
     dbHelper
-      .insertRecipe(Date.now(), title, image, ingredientsString, instructions)
+      .insertRecipe(
+        Date.now(),
+        title,
+        image,
+        ingredientsString,
+        instructionsString,
+      )
       .then(() => {
         navigation.goBack();
       })

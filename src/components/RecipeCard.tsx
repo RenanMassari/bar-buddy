@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   ImageBackground,
+  Alert,
 } from 'react-native';
 
 type RecipeCardProps = {
@@ -11,6 +12,8 @@ type RecipeCardProps = {
   image: string;
   onPress: () => void;
   cardWidth: number;
+  onEdit: () => void;
+  onDelete: () => void;
 };
 
 const CardItem: React.FC<RecipeCardProps> = ({
@@ -18,14 +21,40 @@ const CardItem: React.FC<RecipeCardProps> = ({
   image,
   onPress,
   cardWidth,
+  onEdit,
+  onDelete,
 }) => {
+  const handleLongPress = () => {
+    Alert.alert(
+      'Edit or Delete Recipe',
+      '',
+      [
+        {
+          text: 'Edit Recipe',
+          onPress: onEdit,
+        },
+        {
+          text: 'Delete Recipe',
+          onPress: onDelete,
+          style: 'destructive',
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
   return (
     <TouchableOpacity
       style={[
         styles.cardContainer,
         {width: cardWidth - 10, height: cardWidth - 10},
       ]}
-      onPress={onPress}>
+      onPress={onPress}
+      onLongPress={handleLongPress}>
       <ImageBackground source={{uri: image}} style={styles.card}>
         <Text style={styles.cardText}>{title}</Text>
       </ImageBackground>

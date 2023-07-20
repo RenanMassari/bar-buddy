@@ -83,7 +83,7 @@ export default class DBHelper {
         return;
       }
 
-      const query = `INSERT INTO recipes (id, title, description, image, ingredients, instructions, glass, garnish, category, alcohol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+      const query = `INSERT INTO recipes (id, title, image, ingredients, instructions) VALUES (?, ?, ?, ?, ?);`;
 
       this.db.transaction((tx: Transaction) => {
         tx.executeSql(
@@ -156,5 +156,29 @@ export default class DBHelper {
     });
   }
 
-  // Add other functions for managing the database such as insert, update, delete, and select here
+  deleteRecipe(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject('Database not initialized');
+        return;
+      }
+
+      const query = `DELETE FROM recipes WHERE id = ?;`;
+
+      this.db.transaction((tx: Transaction) => {
+        tx.executeSql(
+          query,
+          [id],
+          () => {
+            console.log('Recipe deleted');
+            resolve();
+          },
+          (_, error: Error) => {
+            console.log(`Recipe not deleted: ${error.message}`);
+            reject(error);
+          },
+        );
+      });
+    });
+  }
 }

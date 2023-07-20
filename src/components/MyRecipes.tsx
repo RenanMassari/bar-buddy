@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
+
 import {
   View,
   Text,
   FlatList,
   StyleSheet,
   Dimensions,
+  Alert,
   TouchableOpacity,
 } from 'react-native';
 
@@ -47,6 +49,30 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     );
   });
 
+  const deleteRecipe = (id: string) => {
+    Alert.alert(
+      'Confirm Delete',
+      'Are you sure you want to delete this recipe?',
+      [
+        {
+          text: 'Yes',
+          onPress: async () => {
+            await dbHelper.deleteRecipe(id);
+
+            // Remove the deleted recipe from the current state
+            setRecipes(recipes.filter(recipe => recipe.id !== id));
+          },
+          style: 'destructive',
+        },
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
   const navigation = useNavigation();
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
@@ -54,6 +80,8 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
       onPress={() => navigation.navigate('DetailedView', {item})}
       image={item.image}
       cardWidth={cardWidth}
+      onEdit={() => navigation.navigate('AddRecipe', {recipeToEdit: item})}
+      onDelete={() => deleteRecipe(item.id)}
     />
   );
 
