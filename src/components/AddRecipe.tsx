@@ -24,7 +24,7 @@ type RootStackParamList = {
     newIngredient?: string;
     updatedIngredient?: string;
     index?: number;
-    recipeToEdit?: Recipe; // added this
+    recipeToEdit?: Recipe;
   };
 };
 
@@ -53,6 +53,10 @@ const AddRecipe = ({navigation, route}: Props) => {
   );
   const [imageUri, setImageUri] = useState(
     route.params?.recipeToEdit?.image || '',
+  );
+
+  const [recipeToEdit, setRecipeToEdit] = useState<Recipe | undefined>(
+    route.params?.recipeToEdit,
   );
 
   const [instructionStep, setInstructionStep] = useState('');
@@ -114,26 +118,51 @@ const AddRecipe = ({navigation, route}: Props) => {
   };
 
   const handleSubmit = async () => {
+    console.log('route.params?.recipeToEdit:', route.params?.recipeToEdit);
+    console.log('recipeToEdit:', recipeToEdit);
     const dbHelper = new DBHelper();
     await dbHelper.initDB();
 
     const ingredientsString = JSON.stringify(ingredients);
-    const instructionsString = instructions.join('\n'); // Convert instructions to a string
+    const instructionsString = instructions.join('\n');
 
-    dbHelper
-      .insertRecipe(
-        Date.now(),
-        title,
-        imageUri,
-        ingredientsString,
-        instructionsString,
-      )
-      .then(() => {
-        navigation.goBack();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    if (recipeToEdit) {
+      // we are editing an existing recipe
+      const {id} = route.params.recipeToEdit;
+      dbHelper
+        .updateRecipe(
+          id,
+          title,
+          imageUri,
+          ingredientsString,
+          instructionsString,
+        )
+        .then(() => {
+          console.log(
+            'Updating recipe with id: ' + id + ' and title: ' + title,
+          );
+          navigation.goBack();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      // we are adding a new recipe
+      dbHelper
+        .insertRecipe(
+          Date.now(),
+          title,
+          imageUri,
+          ingredientsString,
+          instructionsString,
+        )
+        .then(() => {
+          navigation.goBack();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
   };
 
   const getImage = async () => {
