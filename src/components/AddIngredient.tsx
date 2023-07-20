@@ -44,7 +44,7 @@ const AddIngredientScreen = ({navigation, route}) => {
         blurOnSubmit={false}
       />
       <TextInput
-        ref={quantityRef}
+        ref={quantityRef} // error here but needed
         placeholder="Quantity"
         value={quantity}
         onChangeText={setQuantity}

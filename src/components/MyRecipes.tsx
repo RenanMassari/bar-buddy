@@ -63,7 +63,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
           .then(data => {
             setRecipes(data);
           })
-          .catch(error => console.error('Error fetching recipes:', error));
+          .catch(error => console.log('Error fetching recipes:', error));
       };
 
       fetchRecipes();
@@ -116,7 +116,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
       title={item.title}
-      onPress={() => navigation.navigate('DetailedView', {item, onShare})}
+      onPress={() => navigation.navigate('DetailedView', {item})}
       image={item.image}
       cardWidth={cardWidth}
       onEdit={() => {
@@ -136,7 +136,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     setDisplayCount(prevCount => prevCount + 6);
   };
 
-  // Insert the recipes to the database
+  // Insert recipes to the database
   const insertRecipesToDB = async (recipes: Recipe[]) => {
     try {
       await dbHelper.initDB();

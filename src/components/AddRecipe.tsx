@@ -14,9 +14,13 @@ import {
 } from 'react-native';
 import DBHelper from '../recipes/dbHelper';
 import DocumentPicker from 'react-native-document-picker';
+import Recipe from '../classes/Recipe';
 
+// ts errors
 const AddRecipe = ({navigation, route}) => {
-  const recipeToEdit = route.params?.recipeToEdit;
+  const [recipeToEdit, setRecipeToEdit] = useState<Recipe | undefined>(
+    route.params?.recipeToEdit,
+  );
 
   // initialize state using route.params.recipeToEdit if it exists
   const [title, setTitle] = useState(recipeToEdit?.title || '');
@@ -216,7 +220,6 @@ const AddRecipe = ({navigation, route}) => {
         <TextInput
           placeholder="Add a step"
           value={instructionStep}
-          multiline
           onChangeText={setInstructionStep}
           style={styles.inputBottom}
           onSubmitEditing={addInstructionStep}

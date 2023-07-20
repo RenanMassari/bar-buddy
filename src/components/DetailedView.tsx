@@ -1,5 +1,3 @@
-// noinspection TypeScriptValidateTypes
-
 import React, {useState} from 'react';
 import {
   View,
@@ -8,12 +6,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
+  Share,
+  Alert,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {useNavigation} from '@react-navigation/native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {NativeStackNavigationProp} from 'react-native-screens/native-stack';
+import Recipe from '../classes/Recipe';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -39,9 +40,28 @@ const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
   </View>
 );
 
+// Repeated from MyRecipes.tsx
+const onShare = async (item: Recipe) => {
+  console.log('Sharing recipe:', item);
+  try {
+    const result = await Share.share({
+      message: JSON.stringify(item),
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        console.log('shared with activity type of', result.activityType);
+      } else {
+        console.log('shared');
+      }
+    }
+  } catch (error: any) {
+    Alert.alert(error.message);
+  }
+};
+
 const DetailedView = ({route}: {route: any}) => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
-  const {item, onShare} = route.params;
+  const {item} = route.params;
 
   const ingredients = JSON.parse(item.ingredients);
 

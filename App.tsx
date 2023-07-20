@@ -71,7 +71,7 @@ const App = () => {
             options={{title: 'Add Recipe'}}
           />
           <Stack.Screen
-            name="ImportRecipes"
+            name="mportRecipes"
             component={AddRecipe}
             options={{title: 'Add Recipe'}}
           />

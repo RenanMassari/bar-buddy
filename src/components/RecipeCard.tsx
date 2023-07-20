@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import {
-  MenuProvider,
   Menu,
   MenuOptions,
   MenuOption,
