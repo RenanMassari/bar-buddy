@@ -44,7 +44,7 @@ const AddIngredientScreen = ({navigation, route}) => {
         blurOnSubmit={false}
       />
       <TextInput
-        ref={quantityRef}
+        // ref={quantityRef}
         placeholder="Quantity"
         value={quantity}
         onChangeText={setQuantity}
@@ -53,7 +53,7 @@ const AddIngredientScreen = ({navigation, route}) => {
         blurOnSubmit={false}
       />
       <TextInput
-        ref={unitRef}
+        // ref={unitRef}
         placeholder="Unit"
         value={unit}
         onChangeText={setUnit}

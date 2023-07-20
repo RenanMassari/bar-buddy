@@ -103,7 +103,10 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
       onPress={() => navigation.navigate('DetailedView', {item})}
       image={item.image}
       cardWidth={cardWidth}
-      onEdit={() => navigation.navigate('AddRecipe', {recipeToEdit: item})}
+      onEdit={() => {
+        console.log('Editing recipe: ', item);
+        navigation.navigate('AddRecipe', {recipeToEdit: item});
+      }}
       onDelete={() => deleteRecipe(item.id)}
       onShare={() => {
         onShare(item).then(() => {

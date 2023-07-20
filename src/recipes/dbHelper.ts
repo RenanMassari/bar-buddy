@@ -102,6 +102,39 @@ export default class DBHelper {
     });
   }
 
+  updateRecipe(
+    id: string,
+    title: string,
+    image: string,
+    ingredients: string,
+    instructions: string,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject('Database not initialized');
+        return;
+      }
+
+      const query = `UPDATE recipes SET title = ?, image = ?, ingredients = ?, instructions = ? WHERE id = ?;`;
+      console.log('Updating recipe');
+
+      this.db.transaction((tx: Transaction) => {
+        tx.executeSql(
+          query,
+          [title, image, ingredients, instructions, id],
+          () => {
+            console.log('Recipe updated');
+            resolve();
+          },
+          (_, error: Error) => {
+            console.log(`Recipe not updated: ${error.message}`);
+            reject(error);
+          },
+        );
+      });
+    });
+  }
+
   getAllRecipes(): Promise<Recipe[]> {
     return new Promise((resolve, reject) => {
       if (!this.db) {
