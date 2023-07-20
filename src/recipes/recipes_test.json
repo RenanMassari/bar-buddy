@@ -1,0 +1,148 @@
+[
+  {
+    "id": 6,
+    "title": "Piña Colada",
+    "image": "https://img.freepik.com/premium-photo/pina-colada-popular-drink-black-surface_314084-64.jpg",
+    "ingredients": [
+      {
+        "name": "white rum",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "pineapple juice",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "coconut cream",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "Pineapple wedge",
+        "quantity": "for garnish"
+      }
+    ],
+    "instructions": [
+      "In a blender, combine white rum, pineapple juice, and coconut cream.",
+      "Add ice and blend until smooth.",
+      "Pour into a hurricane glass.",
+      "Garnish with a pineapple wedge and serve."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Mojito Royale",
+    "image": "https://media.istockphoto.com/id/1133154216/photo/royal-mojito-cocktail-lime-and-mint-isolated-on-black-background.jpg?s=170667a&w=0&k=20&c=V0OCYNqDS8XmkfsKiAw68tNu8P8V_boQNadl6aV_p5U=",
+    "ingredients": [
+      {
+        "name": "white rum",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "fresh mint leaves",
+        "quantity": 8
+      },
+      {
+        "name": "lime",
+        "quantity": 1
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "sparkling wine",
+        "quantity": 2,
+        "unit": "oz"
+      }
+    ],
+    "instructions": [
+      "Muddle mint leaves and lime wedges in a glass.",
+      "Add white rum and simple syrup, then fill the glass with ice.",
+      "Top with sparkling wine and stir gently to combine.",
+      "Garnish with a mint sprig and lime wedge."
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Mai Tai",
+    "image": "https://img.freepik.com/premium-photo/mai-tai-cocktail-black-background-with-ice_210632-4128.jpg",
+    "ingredients": [
+      {
+        "name": "dark rum",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "orange curaçao",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "orgeat syrup",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "Mint sprig",
+        "quantity": "for garnish"
+      },
+      {
+        "name": "Lime wheel",
+        "quantity": "for garnish"
+      }
+    ],
+    "instructions": [
+      "Fill a cocktail shaker with ice.",
+      "Add dark rum, lime juice, orange curaçao, orgeat syrup, and simple syrup.",
+      "Shake well to combine.",
+      "Strain into a glass filled with crushed ice.",
+      "Garnish with a mint sprig and lime wheel."
+    ]
+  },
+  {
+    "id": 9,
+    "title": "White Russian",
+    "image": "https://cdn.shopify.com/s/files/1/0099/0045/8042/files/GettyImages-467235582_large.jpg?v=1564009624",
+    "ingredients": [
+      {
+        "name": "vodka",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "coffee liqueur",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "heavy cream",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "Ice cubes",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill an Old Fashioned glass with ice cubes.",
+      "Pour vodka and coffee liqueur over the ice.",
+      "Top with heavy cream and stir gently to combine."
+    ]
+  }
+]
