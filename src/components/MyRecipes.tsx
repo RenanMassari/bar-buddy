@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
+  Share,
 } from 'react-native';
 
 import DocumentPicker from 'react-native-document-picker';
@@ -77,6 +78,24 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     );
   };
 
+  const onShare = async (item: Recipe) => {
+    console.log('Sharing recipe:', item);
+    try {
+      const result = await Share.share({
+        message: JSON.stringify(item),
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log('shared with activity type of', result.activityType);
+        } else {
+          console.log('shared');
+        }
+      }
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
+
   const navigation = useNavigation();
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
@@ -86,6 +105,11 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
       cardWidth={cardWidth}
       onEdit={() => navigation.navigate('AddRecipe', {recipeToEdit: item})}
       onDelete={() => deleteRecipe(item.id)}
+      onShare={() => {
+        onShare(item).then(() => {
+          console.log('Shared');
+        });
+      }}
     />
   );
 
