@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
 import recipes from '../recipes/recipes.json';
 import RecipeCard from './RecipeCard';
@@ -7,7 +7,7 @@ interface Recipe {
   id: string;
   title: string;
   description: string;
-  image: string | null;
+  image: string;
   ingredients: [];
   instructions: string;
   glass: string;
@@ -24,8 +24,9 @@ const numColumns = 2;
 const cardWidth = (Dimensions.get('window').width * 0.9) / numColumns;
 
 const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
+  const [displayCount, setDisplayCount] = useState(6);
+
   const filteredRecipes = recipes.filter(recipe => {
-    console.log(`Recipe: `, recipe.title);
     return (
       recipe.title &&
       recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -40,15 +41,21 @@ const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     />
   );
 
+  const loadMoreCocktails = () => {
+    setDisplayCount(prevCount => prevCount + 6);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Recent</Text>
       <FlatList
         contentContainerStyle={styles.list}
-        data={filteredRecipes}
+        data={filteredRecipes.slice(0, displayCount)}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
         numColumns={numColumns}
+        onEndReached={loadMoreCocktails}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );
