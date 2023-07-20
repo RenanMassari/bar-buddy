@@ -26,9 +26,6 @@ const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
         .getAllRecipes()
         .then(data => {
           setRecipes(data);
-          data.forEach(recipe => {
-            console.log(recipe);
-          });
         })
         .catch(error => console.error('Error fetching recipes:', error));
     });

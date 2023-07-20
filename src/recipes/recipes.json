@@ -337,7 +337,7 @@
     "id": 9,
     "title": "Espresso Martini",
     "description": "A classic cocktail made with vodka, Kahlúa, and fresh espresso for a rich and decadent flavor.",
-    "image": "https://www.thecocktailproject.com/sites/default/files/recipe-hero/espresso-martini.jpg",
+    "image": "C:\\Users\\renan\\Desktop\\UNE\\COSC570\\A3\\hifi_prototype\\src\\assets\\cocktails\\espresso.png",
     "ingredients": [
       {
         "name": "vodka",

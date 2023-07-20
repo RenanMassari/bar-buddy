@@ -17,6 +17,8 @@ import MyRecipes from './src/components/MyRecipes';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import DetailedView from './src/components/DetailedView';
+import AddRecipe from './src/components/AddRecipe';
+import AddIngredient from './src/components/AddIngredient';
 
 const Stack = createStackNavigator();
 
@@ -64,6 +66,16 @@ const App = () => {
           name="DetailedView"
           component={DetailedView}
           options={{title: 'Cocktail Details'}}
+        />
+        <Stack.Screen
+          name="AddRecipe"
+          component={AddRecipe}
+          options={{title: 'Add Recipe'}}
+        />
+        <Stack.Screen
+          name="AddIngredient"
+          component={AddIngredient}
+          options={{title: 'Add Ingredient'}}
         />
       </Stack.Navigator>
     </NavigationContainer>

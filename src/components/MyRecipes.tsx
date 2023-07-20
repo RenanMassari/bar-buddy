@@ -1,6 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import RecipeCard from './RecipeCard';
 import DBHelper from '../recipes/dbHelper';
@@ -26,9 +35,6 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
         .getAllRecipes()
         .then(data => {
           setRecipes(data);
-          data.forEach(recipe => {
-            console.log(recipe);
-          });
         })
         .catch(error => console.error('Error fetching recipes:', error));
     });
@@ -57,7 +63,19 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>My Recipes</Text>
+      <View style={styles.title_container}>
+        <Text style={styles.title}>My Recipes</Text>
+        <Icon
+          name="plus-circle"
+          size={30}
+          onPress={() => navigation.navigate('AddRecipe')}
+        />
+        <Icon
+          name="cloud-download-alt"
+          size={30}
+          onPress={() => navigation.navigate('ImportRecipes')}
+        />
+      </View>
       <FlatList
         contentContainerStyle={styles.list}
         data={filteredRecipes.slice(0, displayCount)}
@@ -75,6 +93,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
+  },
+  title_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 10,
   },
   title: {
     fontSize: 24,
