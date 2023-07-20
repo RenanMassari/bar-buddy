@@ -39,12 +39,21 @@ const App = () => {
           <Text style={styles.title}>BarBuddy</Text>
           <Image source={require('./src/assets/logo.png')} />
         </TouchableOpacity>
-        <TextInput
-          style={styles.searchBox}
-          placeholder="Search..."
-          onChangeText={text => setSearchQuery(text)}
-          value={searchQuery}
-        />
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.searchBox}
+            placeholder="Search..."
+            onChangeText={text => setSearchQuery(text)}
+            value={searchQuery}
+          />
+          {searchQuery.length > 0 && (
+            <TouchableOpacity
+              onPress={() => setSearchQuery('')}
+              style={styles.clearIcon}>
+              <Text style={styles.clearText}>×</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
       <View style={styles.bottomSection}>
         <View style={styles.headerContainer}>
@@ -66,10 +75,7 @@ const App = () => {
             ),
           )}
         </View>
-        <View style={styles.contentContainer}>
-          {/*<Recent searchQuery={searchQuery} />*/}
-          {renderContent()}
-        </View>
+        <View style={styles.contentContainer}>{renderContent()}</View>
       </View>
     </View>
   );
@@ -98,12 +104,25 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  searchBox: {
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
     width: '80%',
+  },
+  searchBox: {
+    flex: 1,
     paddingHorizontal: 10,
+  },
+  clearIcon: {
+    paddingHorizontal: 10,
+  },
+  clearText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight: 5,
   },
   bottomSection: {
     flex: 0.7,
@@ -129,6 +148,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  clearIcon: {},
 });
 
 export default App;
