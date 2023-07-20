@@ -73,14 +73,9 @@ export default class DBHelper {
   insertRecipe(
     id: number,
     title: string,
-    description: string,
     image: string,
     ingredients: string,
     instructions: string,
-    glass: string,
-    garnish: string,
-    category: string | null,
-    alcohol: string | null,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       if (!this.db) {
@@ -93,18 +88,7 @@ export default class DBHelper {
       this.db.transaction((tx: Transaction) => {
         tx.executeSql(
           query,
-          [
-            id,
-            title,
-            description,
-            image,
-            ingredients,
-            instructions,
-            glass,
-            garnish,
-            category,
-            alcohol,
-          ],
+          [id, title, image, ingredients, instructions],
           () => {
             console.log('Recipe inserted');
             resolve();

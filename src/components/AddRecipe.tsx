@@ -15,9 +15,7 @@ const AddRecipe = ({navigation, route}) => {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState('');
-  const [garnish, setGarnish] = useState('');
-  const [category, setCategory] = useState('');
-  const [alcohol, setAlcohol] = useState('');
+  const [image, setImage] = useState('');
 
   const ingredientsRef = useRef(ingredients);
 
@@ -69,18 +67,7 @@ const AddRecipe = ({navigation, route}) => {
     const ingredientsString = JSON.stringify(ingredients);
 
     dbHelper
-      .insertRecipe(
-        Date.now(),
-        title,
-        instructions, // Assume this as description
-        '', // Assume no image
-        ingredientsString,
-        instructions,
-        garnish,
-        garnish,
-        category,
-        alcohol,
-      )
+      .insertRecipe(Date.now(), title, image, ingredientsString, instructions)
       .then(() => {
         navigation.goBack();
       })
@@ -92,7 +79,7 @@ const AddRecipe = ({navigation, route}) => {
   return (
     <ScrollView style={styles.container}>
       <TextInput
-        placeholder="Title"
+        placeholder="Cocktail Name"
         value={title}
         onChangeText={setTitle}
         style={styles.input}
@@ -111,30 +98,12 @@ const AddRecipe = ({navigation, route}) => {
       </View>
       <Button title="Add Ingredient" onPress={handleAddIngredient} />
       <TextInput
-        placeholder="Instructions"
+        placeholder="Add your instructions here"
         value={instructions}
         onChangeText={setInstructions}
         style={styles.input}
         multiline={true}
         numberOfLines={6}
-      />
-      <TextInput
-        placeholder="Garnish"
-        value={garnish}
-        onChangeText={setGarnish}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Category"
-        value={category}
-        onChangeText={setCategory}
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Alcohol"
-        value={alcohol}
-        onChangeText={setAlcohol}
-        style={styles.input}
       />
       <Button title="Submit" onPress={handleSubmit} />
     </ScrollView>
