@@ -8,7 +8,10 @@ import {
   Dimensions,
   Alert,
   TouchableOpacity,
+  PermissionsAndroid,
 } from 'react-native';
+
+import DocumentPicker, {types} from 'react-native-document-picker';
 
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -17,6 +20,8 @@ import RecipeCard from './RecipeCard';
 import DBHelper from '../recipes/dbHelper';
 
 import Recipe from '../classes/Recipe';
+
+import RNFS from 'react-native-fs';
 
 interface RecentProps {
   searchQuery: string;
@@ -30,6 +35,7 @@ const dbHelper = new DBHelper();
 const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
   const [displayCount, setDisplayCount] = useState(6);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [fileResponse, setFileResponse] = useState([]);
 
   useEffect(() => {
     dbHelper.initDB().then(() => {
@@ -87,6 +93,28 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
 
   const loadMoreCocktails = () => {
     setDisplayCount(prevCount => prevCount + 6);
+  };
+
+  const importRecipes = async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+      });
+
+      console.log(response);
+
+      // Read the file
+      const fileContent = await RNFS.readFile(response[0].uri, 'utf8');
+
+      // Parse it as JSON
+      const jsonContent = JSON.parse(fileContent);
+
+      setFileResponse(jsonContent);
+
+      console.log(fileResponse); // this will print the parsed JSON content
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
