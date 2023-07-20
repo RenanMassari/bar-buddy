@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import DBHelper from '../recipes/dbHelper';
 import DocumentPicker from 'react-native-document-picker';
+import Recipe from '../classes/Recipe';
 
 type RootStackParamList = {
   Home: undefined;
@@ -22,6 +23,7 @@ type RootStackParamList = {
     newIngredient?: string;
     updatedIngredient?: string;
     index?: number;
+    recipeToEdit?: Recipe; // added this
   };
 };
 
@@ -37,12 +39,23 @@ type Props = {
 };
 
 const AddRecipe = ({navigation, route}: Props) => {
-  const [title, setTitle] = useState('');
-  const [ingredients, setIngredients] = useState<string[]>([]);
+  // initialize state using route.params.recipeToEdit if it exists
+  const [title, setTitle] = useState(route.params?.recipeToEdit?.title || '');
+  const [ingredients, setIngredients] = useState(
+    route.params?.recipeToEdit?.ingredients
+      ? JSON.parse(route.params?.recipeToEdit?.ingredients)
+      : [],
+  );
+
+  const [instructions, setInstructions] = useState(
+    route.params?.recipeToEdit?.instructions.split('\n') || [],
+  );
+  const [imageUri, setImageUri] = useState(
+    route.params?.recipeToEdit?.image || '',
+  );
+
   const [instructionStep, setInstructionStep] = useState('');
-  const [instructions, setInstructions] = useState<string[]>([]);
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [imageUri, setImageUri] = useState('');
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
