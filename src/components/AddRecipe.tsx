@@ -31,7 +31,6 @@ const AddRecipe = ({navigation, route}) => {
   const [instructionStep, setInstructionStep] = useState('');
   const instructionStepInputRef = useRef<TextInput>(null);
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [stepButtonName, setStepButtonName] = useState('Add Step');
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -73,7 +72,6 @@ const AddRecipe = ({navigation, route}) => {
 
   const addInstructionStep = () => {
     if (editIndex !== null) {
-      setStepButtonName('Edit Step');
       const updatedInstructions = [...instructions]; // Create a copy of instructions
       updatedInstructions[editIndex] = instructionStep;
       setInstructions(updatedInstructions);
@@ -212,14 +210,15 @@ const AddRecipe = ({navigation, route}) => {
             onPress={() => setInstructions(instructions.slice(0, -1))}
             disabled={instructions.length === 0}
           />
-          <Button title={stepButtonName} onPress={addInstructionStep} />
+          <Button title="Add Step" onPress={addInstructionStep} />
           <Button title="Submit" onPress={handleSubmit} />
         </View>
         <TextInput
           placeholder="Add a step"
           value={instructionStep}
+          multiline
           onChangeText={setInstructionStep}
-          style={styles.input}
+          style={styles.inputBottom}
           onSubmitEditing={addInstructionStep}
           blurOnSubmit={false}
           ref={instructionStepInputRef}
@@ -247,6 +246,14 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
+    marginTop: 10,
+    paddingLeft: 10,
+  },
+  inputBottom: {
+    minHeight: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 40,
     marginTop: 10,
     paddingLeft: 10,
   },
