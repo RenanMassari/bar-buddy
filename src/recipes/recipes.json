@@ -337,7 +337,7 @@
     "id": 9,
     "title": "Espresso Martini",
     "description": "A classic cocktail made with vodka, Kahlúa, and fresh espresso for a rich and decadent flavor.",
-    "image": "C:\\Users\\renan\\Desktop\\UNE\\COSC570\\A3\\hifi_prototype\\src\\assets\\cocktails\\espresso.png",
+    "image": "",
     "ingredients": [
       {
         "name": "vodka",
@@ -384,7 +384,7 @@
     "id": 10,
     "title": "French 75",
     "description": "A refreshing cocktail made with gin, lemon juice, and champagne for a bubbly twist.",
-    "image": "https://www.liquor.com/thmb/T-O8vGJwpX6S5m47U5RG6jKFeJ4=/720x540/filters:fill(auto,1)/__opt__aboutcom__coeus__resources__content_migration__liquor__2019__08__06090248__French-75-720x720-recipe-93c9a9d01307446c894e802df231ab11.jpg",
+    "image": "",
     "ingredients": [
       {
         "name": "gin",
@@ -434,7 +434,7 @@
     "id": 11,
     "title": "Paloma",
     "description": "A refreshing and easy-to-make Mexican cocktail made with tequila, grapefruit soda, and lime.",
-    "image": "https://www.cookingclassy.com/wp-content/uploads/2018/04/paloma-cocktails-7.jpg",
+    "image": "",
     "ingredients": [
       {
         "name": "tequila",
@@ -478,7 +478,7 @@
       "id": 12,
       "title": "Moscow Mule",
       "description": "A classic cocktail made with vodka, ginger beer, and lime juice.",
-      "image": "https://www.liquor.com/thmb/qLd9vl9teOFtThEBH5ry5gr5JRE=/720x720/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__liquor__2018__12__19153327__moscow-mule-720x720-recipe-9ac61087e78a4c669ad0a4a3b95a42af.jpg",
+      "image": "",
       "ingredients": [
         {
           "name": "vodka",
