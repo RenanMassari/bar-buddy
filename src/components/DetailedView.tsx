@@ -6,8 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
+  Button,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {useNavigation} from '@react-navigation/native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -35,8 +37,8 @@ const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
   </View>
 );
 
-
 const DetailedView = ({route}: {route: any}) => {
+  const navigation = useNavigation();
   const {item} = route.params;
 
   const ingredients = JSON.parse(item.ingredients);
@@ -44,7 +46,13 @@ const DetailedView = ({route}: {route: any}) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={[styles.container, {flex: 1}]}>
+    <View style={[styles.container]}>
+      <Icon
+        name="edit"
+        size={30}
+        style={styles.editButton}
+        onPress={() => navigation.navigate('AddRecipe', {recipeToEdit: item})}
+      />
       <Text style={styles.title}>{item.title}</Text>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Image style={styles.image} source={{uri: item.image}} />
@@ -87,6 +95,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 1,
   },
   title: {
     fontSize: 24,
@@ -105,6 +114,11 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     lineHeight: 24,
+  },
+  editButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 
