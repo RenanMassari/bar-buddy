@@ -5,7 +5,9 @@ const AddIngredientScreen = ({navigation, route}) => {
   const {ingredient, index} = route.params || {};
 
   const [name, setName] = useState(ingredient?.name || '');
-  const [quantity, setQuantity] = useState(ingredient?.quantity || '');
+  const [quantity, setQuantity] = useState(
+    ingredient?.quantity.toString() || '',
+  );
   const [unit, setUnit] = useState(ingredient?.unit || '');
 
   const quantityRef = useRef();
