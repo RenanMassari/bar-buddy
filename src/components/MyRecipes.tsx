@@ -98,11 +98,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
           size={30}
           onPress={() => navigation.navigate('AddRecipe')}
         />
-        <Icon
-          name="cloud-download-alt"
-          size={30}
-          onPress={() => navigation.navigate('ImportRecipes')}
-        />
+        <Icon name="cloud-download-alt" size={30} onPress={importRecipes} />
       </View>
       <FlatList
         contentContainerStyle={styles.list}

@@ -34,14 +34,9 @@ dbHelper
         .insertRecipe(
           recipe.id,
           recipe.title,
-          recipe.description,
           recipe.image,
           JSON.stringify(recipe.ingredients), // Convert ingredients array to string
           recipe.instructions.toString(),
-          recipe.glass,
-          recipe.garnish,
-          recipe.category,
-          recipe.alcohol,
         )
         .then(() => console.log(`Recipe ${recipe.title} inserted`))
         .catch(error =>
@@ -69,6 +64,11 @@ const App = () => {
         />
         <Stack.Screen
           name="AddRecipe"
+          component={AddRecipe}
+          options={{title: 'Add Recipe'}}
+        />
+        <Stack.Screen
+          name="ImportRecipes"
           component={AddRecipe}
           options={{title: 'Add Recipe'}}
         />

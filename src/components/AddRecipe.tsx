@@ -1,4 +1,6 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
+import ImagePicker from 'react-native-image-crop-picker';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import {
   ScrollView,
@@ -8,6 +10,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  PermissionsAndroid,
 } from 'react-native';
 import DBHelper from '../recipes/dbHelper';
 
@@ -73,10 +76,71 @@ const AddRecipe = ({navigation, route}) => {
     setEditIndex(index);
   };
 
-  const handleIngredientChange = (index, field, value) => {
-    const newIngredients = [...ingredients];
-    newIngredients[index][field] = value;
-    setIngredients(newIngredients);
+  const requestGalleryPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Cool Photo App Camera Permission',
+          message:
+            'Cool Photo App needs access to your camera ' +
+            'so you can take awesome pictures.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      console.log(granted);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the camera');
+        return true;
+      } else {
+        console.log('Camera permission denied');
+        return false;
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'Cool Photo App Camera Permission',
+          message:
+            'Cool Photo App needs access to your camera ' +
+            'so you can take awesome pictures.',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      console.log(granted);
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('You can use the camera');
+        return true;
+      } else {
+        console.log('Camera permission denied');
+        return false;
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+  const handleChoosePhoto = async () => {
+    const permission = await requestGalleryPermission();
+    console.log(`permission: ${permission}`);
+    if (permission) {
+      ImagePicker.openPicker({
+        width: 300,
+        height: 400,
+        cropping: true,
+      }).then(image => {
+        setImage(image.path);
+      });
+    }
   };
 
   const handleSubmit = async () => {
@@ -104,6 +168,15 @@ const AddRecipe = ({navigation, route}) => {
 
   return (
     <ScrollView style={styles.container}>
+      <Icon
+        name={'image'}
+        size={30}
+        color={'#000'}
+        onPress={() => {
+          // requestGalleryPermission().then(r => console.log(r));
+          handleChoosePhoto();
+        }}
+      />
       <TextInput
         placeholder="Cocktail Name"
         value={title}
@@ -123,6 +196,7 @@ const AddRecipe = ({navigation, route}) => {
         ))}
       </View>
       <Button title="Add Ingredient" onPress={handleAddIngredient} />
+      <Button title="Camera" onPress={requestCameraPermission} />
       <Text>Instructions</Text>
       {instructions.map((instruction, index) => (
         <TouchableOpacity
