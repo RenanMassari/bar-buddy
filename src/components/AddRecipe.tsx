@@ -45,15 +45,14 @@ const AddRecipe = ({navigation, route}: Props) => {
   );
 
   // initialize state using route.params.recipeToEdit if it exists
-  const [title, setTitle] = useState(recipeToEdit.title || '');
+  const [title, setTitle] = useState(recipeToEdit?.title || '');
   const [ingredients, setIngredients] = useState(
-    recipeToEdit.ingredients ? JSON.parse(recipeToEdit.ingredients) : [],
+    recipeToEdit?.ingredients ? JSON.parse(recipeToEdit.ingredients) : [],
   );
-
   const [instructions, setInstructions] = useState(
-    recipeToEdit.instructions.split('\n') || [],
+    recipeToEdit?.instructions ? recipeToEdit.instructions.split('\n') : [],
   );
-  const [imageUri, setImageUri] = useState(recipeToEdit.image || '');
+  const [imageUri, setImageUri] = useState(recipeToEdit?.image || '');
 
   const [instructionStep, setInstructionStep] = useState('');
   const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -171,7 +170,7 @@ const AddRecipe = ({navigation, route}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 100}
       style={styles.container}>
       <ScrollView style={styles.container}>
         <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
