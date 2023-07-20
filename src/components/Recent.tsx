@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import recipes from '../recipes/recipes.json';
 import RecipeCard from './RecipeCard';
+import DBHelper from '../recipes/dbHelper'; // Update this path to your DBHelper.ts file
 
 interface Recipe {
   id: string;
@@ -25,8 +25,25 @@ interface RecentProps {
 const numColumns = 2;
 const cardWidth = (Dimensions.get('window').width * 0.9) / numColumns;
 
+const dbHelper = new DBHelper();
+
 const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
   const [displayCount, setDisplayCount] = useState(6);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+
+  useEffect(() => {
+    dbHelper.initDB().then(() => {
+      dbHelper
+        .getAllRecipes()
+        .then(data => {
+          setRecipes(data);
+          data.forEach(recipe => {
+            console.log(recipe);
+          });
+        })
+        .catch(error => console.error('Error fetching recipes:', error));
+    });
+  });
 
   const filteredRecipes = recipes.filter(recipe => {
     return (

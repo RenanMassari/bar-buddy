@@ -68,5 +68,107 @@ export default class DBHelper {
     });
   }
 
+  insertRecipe(
+    id: number,
+    title: string,
+    description: string,
+    image: string,
+    ingredients: string,
+    instructions: string,
+    glass: string,
+    garnish: string,
+    category: string | null,
+    alcohol: string | null,
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject('Database not initialized');
+        return;
+      }
+
+      const query = `INSERT INTO recipes (id, title, description, image, ingredients, instructions, glass, garnish, category, alcohol) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+
+      this.db.transaction((tx: Transaction) => {
+        tx.executeSql(
+          query,
+          [
+            id,
+            title,
+            description,
+            image,
+            ingredients,
+            instructions,
+            glass,
+            garnish,
+            category,
+            alcohol,
+          ],
+          () => {
+            console.log('Recipe inserted');
+            resolve();
+          },
+          (_, error: Error) => {
+            console.log(`Recipe not inserted: ${error.message}`);
+            reject(error);
+          },
+        );
+      });
+    });
+  }
+
+  getAllRecipes(): Promise<Recipe[]> {
+    return new Promise((resolve, reject) => {
+      if (!this.db) {
+        reject('Database not initialized');
+        return;
+      }
+
+      const query = `SELECT * FROM recipes;`;
+
+      this.db.transaction((tx: Transaction) => {
+        tx.executeSql(
+          query,
+          [],
+          (_, result) => {
+            const len = result.rows.length;
+            const recipes: Recipe[] = [];
+            for (let i = 0; i < len; i++) {
+              const row = result.rows.item(i);
+              const {
+                id,
+                title,
+                description,
+                image,
+                ingredients,
+                instructions,
+                glass,
+                garnish,
+                category,
+                alcohol,
+              } = row;
+              recipes.push({
+                id,
+                title,
+                description,
+                image,
+                ingredients,
+                instructions,
+                glass,
+                garnish,
+                category,
+                alcohol,
+              });
+            }
+            resolve(recipes);
+          },
+          (_, error: Error) => {
+            console.log(`Recipes not retrieved: ${error.message}`);
+            reject(error);
+          },
+        );
+      });
+    });
+  }
+
   // Add other functions for managing the database such as insert, update, delete, and select here
 }

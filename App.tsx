@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 
+import recipes from './src/recipes/recipes.json';
 import DBHelper from './src/recipes/dbHelper';
 
 import Recent from './src/components/Recent';
@@ -23,7 +24,27 @@ dbHelper
   .initDB()
   .then(db => {
     console.log('Database initialized');
-    // Perform database operations here
+
+    // Insert initial recipes from JSON to database
+    recipes.forEach(recipe => {
+      dbHelper
+        .insertRecipe(
+          recipe.id,
+          recipe.title,
+          recipe.description,
+          recipe.image,
+          JSON.stringify(recipe.ingredients), // Convert ingredients array to string
+          recipe.instructions.toString(),
+          recipe.glass,
+          recipe.garnish,
+          recipe.category,
+          recipe.alcohol,
+        )
+        .then(() => console.log(`Recipe ${recipe.title} inserted`))
+        .catch(error =>
+          console.error(`Error inserting recipe ${recipe.title}:`, error),
+        );
+    });
   })
   .catch(error => {
     console.error('Error initializing database:', error);

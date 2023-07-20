@@ -29,6 +29,8 @@ const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
 const DetailedView = ({route}) => {
   const {item} = route.params;
 
+  const ingredients = JSON.parse(item.ingredients);
+
   return (
     <View style={[styles.container, {flex: 1}]}>
       <Text style={styles.title}>{item.title}</Text>
@@ -41,7 +43,7 @@ const DetailedView = ({route}) => {
           }}>
           <Tab.Screen
             name="Ingredients"
-            children={() => <Ingredients ingredients={item.ingredients} />}
+            children={() => <Ingredients ingredients={ingredients} />}
           />
           <Tab.Screen
             name="Instructions"
