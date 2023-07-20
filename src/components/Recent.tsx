@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
 import recipes from '../recipes/recipes.json';
 import RecipeCard from './RecipeCard';
 
@@ -32,10 +34,12 @@ const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
       recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
+
+  const navigation = useNavigation();
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
       title={item.title}
-      onPress={() => console.log(`Navigating to details of ${item.title}`)}
+      onPress={() => navigation.navigate('DetailedView', {item})}
       image={item.image}
       cardWidth={cardWidth}
     />

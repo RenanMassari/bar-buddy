@@ -332,5 +332,184 @@
     "category": "classic",
     "alcohol": "whiskey",
     "servingSize": 1
-  }
+  },
+  {
+    "id": 9,
+    "title": "Espresso Martini",
+    "description": "A classic cocktail made with vodka, Kahlúa, and fresh espresso for a rich and decadent flavor.",
+    "image": "https://www.thecocktailproject.com/sites/default/files/recipe-hero/espresso-martini.jpg",
+    "ingredients": [
+      {
+        "name": "vodka",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "Kahlúa",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "fresh espresso",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.25,
+        "unit": "oz"
+      },
+      {
+        "name": "coffee beans",
+        "quantity": "for garnish"
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Add all ingredients to a shaker filled with ice.",
+      "Shake well until chilled.",
+      "Strain into a chilled glass.",
+      "Garnish with a few coffee beans on top."
+    ],
+    "glass": "martini",
+    "garnish": "coffee beans",
+    "category": "classic",
+    "alcohol": "vodka",
+    "servingSize": 1
+  },
+  {
+    "id": 10,
+    "title": "French 75",
+    "description": "A refreshing cocktail made with gin, lemon juice, and champagne for a bubbly twist.",
+    "image": "https://www.liquor.com/thmb/T-O8vGJwpX6S5m47U5RG6jKFeJ4=/720x540/filters:fill(auto,1)/__opt__aboutcom__coeus__resources__content_migration__liquor__2019__08__06090248__French-75-720x720-recipe-93c9a9d01307446c894e802df231ab11.jpg",
+    "ingredients": [
+      {
+        "name": "gin",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "champagne",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "lemon twist",
+        "quantity": 1,
+        "unit": "for garnish"
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill a shaker with ice.",
+      "Add gin, lemon juice, and simple syrup.",
+      "Shake well until chilled.",
+      "Strain into a chilled champagne flute.",
+      "Top with champagne.",
+      "Garnish with a lemon twist."
+    ],
+    "glass": "champagne flute",
+    "garnish": "lemon twist",
+    "category": "classic",
+    "alcohol": "gin",
+    "servingSize": 1
+  },
+  {
+    "id": 11,
+    "title": "Paloma",
+    "description": "A refreshing and easy-to-make Mexican cocktail made with tequila, grapefruit soda, and lime.",
+    "image": "https://www.cookingclassy.com/wp-content/uploads/2018/04/paloma-cocktails-7.jpg",
+    "ingredients": [
+      {
+        "name": "tequila",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "grapefruit soda",
+        "quantity": 4,
+        "unit": "oz"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "salt",
+        "quantity": "optional",
+        "unit": "rim"
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Rub the rim of a chilled glass with a lime wedge, then dip the rim into salt if desired.",
+      "Fill the glass with ice.",
+      "Add tequila and lime juice, then top with grapefruit soda.",
+      "Stir gently to combine.",
+      "Garnish with a lime wedge and serve."
+    ],
+    "glass": "highball",
+    "garnish": "lime wedge",
+    "category": "classic",
+    "alcohol": "tequila",
+    "servingSize": 1
+  },
+    {
+      "id": 12,
+      "title": "Moscow Mule",
+      "description": "A classic cocktail made with vodka, ginger beer, and lime juice.",
+      "image": "https://www.liquor.com/thmb/qLd9vl9teOFtThEBH5ry5gr5JRE=/720x720/smart/filters:no_upscale()/__opt__aboutcom__coeus__resources__content_migration__liquor__2018__12__19153327__moscow-mule-720x720-recipe-9ac61087e78a4c669ad0a4a3b95a42af.jpg",
+      "ingredients": [
+        {
+          "name": "vodka",
+          "quantity": 2,
+          "unit": "oz"
+        },
+        {
+          "name": "ginger beer",
+          "quantity": 4,
+          "unit": "oz"
+        },
+        {
+          "name": "lime juice",
+          "quantity": 0.5,
+          "unit": "oz"
+        },
+        {
+          "name": "ice",
+          "quantity": "as needed"
+        }
+      ],
+      "instructions": [
+        "Fill a glass with ice.",
+        "Add vodka and lime juice, then top with ginger beer.",
+        "Stir gently to combine.",
+        "Garnish with a lime wedge and serve."
+      ],
+      "glass": "copper mug",
+      "garnish": "lime wedge",
+      "category": "classic",
+      "alcohol": "vodka",
+      "servingSize": 1
+    }
 ]

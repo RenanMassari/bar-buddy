@@ -8,9 +8,47 @@ import {
   Image,
 } from 'react-native';
 
+import DBHelper from './src/recipes/dbHelper';
+
 import Recent from './src/components/Recent';
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import DetailedView from './src/components/DetailedView';
+
+const Stack = createStackNavigator();
+
+const dbHelper = new DBHelper();
+dbHelper
+  .initDB()
+  .then(db => {
+    console.log('Database initialized');
+    // Perform database operations here
+  })
+  .catch(error => {
+    console.error('Error initializing database:', error);
+  });
+
 const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={MainApp}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="DetailedView"
+          component={DetailedView}
+          options={{title: 'Cocktail Details'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const MainApp = () => {
   const [activeHeader, setActiveHeader] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -148,7 +186,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  clearIcon: {},
 });
 
 export default App;
