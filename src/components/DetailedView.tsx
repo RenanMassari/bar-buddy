@@ -22,7 +22,7 @@ type Ingredient = {
 const Ingredients: React.FC<{ingredients: Ingredient[]}> = ({ingredients}) => (
   <View style={styles.tabContainer}>
     {ingredients.map((ingredient: Ingredient, index: number) => (
-      <Text key={index}>
+      <Text key={index} style={styles.textStyle}>
         {ingredient.name}: {ingredient.quantity} {ingredient.unit}
       </Text>
     ))}
@@ -31,7 +31,7 @@ const Ingredients: React.FC<{ingredients: Ingredient[]}> = ({ingredients}) => (
 
 const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
   <View style={styles.tabContainer}>
-    <Text>{instructions}</Text>
+    <Text style={styles.textStyle}>{instructions}</Text>
   </View>
 );
 
@@ -104,6 +104,10 @@ const styles = StyleSheet.create({
   },
   tabContainer: {
     paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  textStyle: {
+    lineHeight: 24,
   },
 });
 
