@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import {
   ScrollView,
@@ -14,12 +14,14 @@ import DBHelper from '../recipes/dbHelper';
 const AddRecipe = ({navigation, route}) => {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState([]);
-  const [instructions, setInstructions] = useState('');
+  const [instructionStep, setInstructionStep] = useState('');
+  const [instructions, setInstructions] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
   const [image, setImage] = useState('');
 
-  const ingredientsRef = useRef(ingredients);
-
-  const isFocused = useIsFocused();
+  // Keeps track of which step of the instructions the user is on
+  const [step, setStep] = useState(2);
+  const instructionsInputRef = useRef();
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -52,6 +54,23 @@ const AddRecipe = ({navigation, route}) => {
 
   const handleEditIngredient = (ingredient, index) => {
     navigation.navigate('AddIngredient', {ingredient, index});
+  };
+
+  const addInstructionStep = () => {
+    if (editIndex !== null) {
+      const updatedInstructions = [...instructions];
+      updatedInstructions[editIndex] = instructionStep;
+      setInstructions(updatedInstructions);
+      setEditIndex(null);
+    } else {
+      setInstructions([...instructions, instructionStep]);
+    }
+    setInstructionStep('');
+  };
+
+  const editInstructionStep = index => {
+    setInstructionStep(instructions[index]);
+    setEditIndex(index);
   };
 
   const handleIngredientChange = (index, field, value) => {
@@ -97,14 +116,30 @@ const AddRecipe = ({navigation, route}) => {
         ))}
       </View>
       <Button title="Add Ingredient" onPress={handleAddIngredient} />
+      <Text>Instructions</Text>
+      {instructions.map((instruction, index) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => editInstructionStep(index)}>
+          <Text>
+            {index + 1}. {instruction}
+          </Text>
+        </TouchableOpacity>
+      ))}
       <TextInput
-        placeholder="Add your instructions here"
-        value={instructions}
-        onChangeText={setInstructions}
+        placeholder="Add a step"
+        value={instructionStep}
+        onChangeText={setInstructionStep}
         style={styles.input}
-        multiline={true}
-        numberOfLines={6}
+        onSubmitEditing={addInstructionStep}
+        blurOnSubmit={false}
       />
+      <Button
+        title={'Delete Last Step'}
+        onPress={() => setInstructions(instructions.slice(0, -1))}
+        disabled={instructions.length === 0}
+      />
+      <Button title="Add Step" onPress={addInstructionStep} />
       <Button title="Submit" onPress={handleSubmit} />
     </ScrollView>
   );

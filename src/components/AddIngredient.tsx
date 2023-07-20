@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {View, TextInput, Button, StyleSheet} from 'react-native';
 
 const AddIngredientScreen = ({navigation, route}) => {
@@ -7,6 +7,9 @@ const AddIngredientScreen = ({navigation, route}) => {
   const [name, setName] = useState(ingredient?.name || '');
   const [quantity, setQuantity] = useState(ingredient?.quantity || '');
   const [unit, setUnit] = useState(ingredient?.unit || '');
+
+  const quantityRef = useRef();
+  const unitRef = useRef();
 
   const handleSubmit = () => {
     if (index !== undefined) {
@@ -35,18 +38,25 @@ const AddIngredientScreen = ({navigation, route}) => {
         value={name}
         onChangeText={setName}
         style={styles.input}
+        onSubmitEditing={() => quantityRef.current.focus()}
+        blurOnSubmit={false}
       />
       <TextInput
+        ref={quantityRef}
         placeholder="Quantity"
         value={quantity}
         onChangeText={setQuantity}
         style={styles.input}
+        onSubmitEditing={() => unitRef.current.focus()}
+        blurOnSubmit={false}
       />
       <TextInput
+        ref={unitRef}
         placeholder="Unit"
         value={unit}
         onChangeText={setUnit}
         style={styles.input}
+        onSubmitEditing={handleSubmit}
       />
       <Button title="Submit" onPress={handleSubmit} />
     </View>
