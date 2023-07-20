@@ -1,6 +1,15 @@
-import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import ImageViewer from 'react-native-image-zoom-viewer';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -26,15 +35,37 @@ const Instructions: React.FC<{instructions: string}> = ({instructions}) => (
   </View>
 );
 
+const expandImage = imageSource => {
+  console.log(imageSource);
+};
+
 const DetailedView = ({route}) => {
   const {item} = route.params;
 
   const ingredients = JSON.parse(item.ingredients);
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={[styles.container, {flex: 1}]}>
       <Text style={styles.title}>{item.title}</Text>
-      <Image source={{uri: item.image}} style={styles.image} />
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <Image style={styles.image} source={{uri: item.image}} />
+      </TouchableOpacity>
+      <Modal visible={isModalVisible}>
+        <ImageViewer
+          imageUrls={[{url: item.image}]}
+          onSwipeDown={() => setModalVisible(false)}
+          enableSwipeDown={true}
+        />
+        <Icon
+          name={'compress-arrows-alt'}
+          size={50}
+          color={'#fff'}
+          onPress={() => setModalVisible(false)}
+          style={{position: 'absolute', top: 0, right: 0}}
+        />
+      </Modal>
       <View style={{flex: 1, alignSelf: 'stretch'}}>
         <Tab.Navigator
           screenOptions={{
