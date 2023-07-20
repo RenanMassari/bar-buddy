@@ -90,7 +90,7 @@ const AddRecipe = ({navigation, route}) => {
       .insertRecipe(
         Date.now(),
         title,
-        image,
+        imageUri,
         ingredientsString,
         instructionsString,
       )
