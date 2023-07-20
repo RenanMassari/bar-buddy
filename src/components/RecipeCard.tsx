@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   TouchableOpacity,
   Text,
   StyleSheet,
   ImageBackground,
-  Alert,
+  View,
 } from 'react-native';
+import {
+  MenuProvider,
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 
 type RecipeCardProps = {
   title: string;
@@ -14,6 +21,7 @@ type RecipeCardProps = {
   cardWidth: number;
   onEdit: () => void;
   onDelete: () => void;
+  onShare: () => void;
 };
 
 const CardItem: React.FC<RecipeCardProps> = ({
@@ -23,28 +31,16 @@ const CardItem: React.FC<RecipeCardProps> = ({
   cardWidth,
   onEdit,
   onDelete,
+  onShare,
 }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleLongPress = () => {
-    Alert.alert(
-      'Edit or Delete Recipe',
-      '',
-      [
-        {
-          text: 'Edit Recipe',
-          onPress: onEdit,
-        },
-        {
-          text: 'Delete Recipe',
-          onPress: onDelete,
-          style: 'destructive',
-        },
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-      ],
-      {cancelable: true},
-    );
+    setMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -57,6 +53,37 @@ const CardItem: React.FC<RecipeCardProps> = ({
       onLongPress={handleLongPress}>
       <ImageBackground source={{uri: image}} style={styles.card}>
         <Text style={styles.cardText}>{title}</Text>
+        <View style={styles.menuContainer}>
+          <Menu
+            opened={menuOpen}
+            onBackdropPress={handleMenuClose}
+            style={styles.innerMenu}>
+            <MenuTrigger />
+            <MenuOptions>
+              <MenuOption
+                onSelect={() => {
+                  onEdit();
+                  handleMenuClose();
+                }}
+                text="Edit Recipe"
+              />
+              <MenuOption
+                onSelect={() => {
+                  onDelete();
+                  handleMenuClose();
+                }}
+                text="Delete Recipe"
+              />
+              <MenuOption
+                onSelect={() => {
+                  onShare();
+                  handleMenuClose();
+                }}
+                text="Share Recipe"
+              />
+            </MenuOptions>
+          </Menu>
+        </View>
       </ImageBackground>
     </TouchableOpacity>
   );
@@ -82,6 +109,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 5,
+  },
+  menuContainer: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+  },
+  innerMenu: {
+    padding: 50,
+  },
+  menuTrigger: {
+    color: '#fff',
   },
 });
 

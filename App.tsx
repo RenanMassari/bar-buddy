@@ -8,6 +8,8 @@ import {
   Image,
 } from 'react-native';
 
+import {MenuProvider} from 'react-native-popup-menu';
+
 import recipes from './src/recipes/recipes.json';
 import DBHelper from './src/recipes/dbHelper';
 
@@ -50,35 +52,37 @@ dbHelper
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={MainApp}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="DetailedView"
-          component={DetailedView}
-          options={{title: 'Cocktail Details'}}
-        />
-        <Stack.Screen
-          name="AddRecipe"
-          component={AddRecipe}
-          options={{title: 'Add Recipe'}}
-        />
-        <Stack.Screen
-          name="ImportRecipes"
-          component={AddRecipe}
-          options={{title: 'Add Recipe'}}
-        />
-        <Stack.Screen
-          name="AddIngredient"
-          component={AddIngredient}
-          options={{title: 'Add Ingredient'}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <MenuProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={MainApp}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="DetailedView"
+            component={DetailedView}
+            options={{title: 'Cocktail Details'}}
+          />
+          <Stack.Screen
+            name="AddRecipe"
+            component={AddRecipe}
+            options={{title: 'Add Recipe'}}
+          />
+          <Stack.Screen
+            name="ImportRecipes"
+            component={AddRecipe}
+            options={{title: 'Add Recipe'}}
+          />
+          <Stack.Screen
+            name="AddIngredient"
+            component={AddIngredient}
+            options={{title: 'Add Ingredient'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </MenuProvider>
   );
 };
 
