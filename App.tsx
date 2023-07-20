@@ -89,9 +89,9 @@ const MainApp = () => {
   const renderContent = () => {
     switch (activeHeader) {
       case 0:
-        return <Recent searchQuery={searchQuery} />;
-      case 1:
         return <MyRecipes searchQuery={searchQuery} />;
+      case 1:
+        return <Recent searchQuery={searchQuery} />;
       case 2:
         return <Text>Content 3</Text>;
       case 3:
@@ -129,7 +129,7 @@ const MainApp = () => {
       </View>
       <View style={styles.bottomSection}>
         <View style={styles.headerContainer}>
-          {['Recent', 'My Recipes', 'Header 3', 'Header 4'].map(
+          {['My Recipes', 'Recent', 'Favourites', 'Training'].map(
             (header, index) => (
               <TouchableOpacity
                 key={header}
