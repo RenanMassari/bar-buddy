@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 
-import Recent from './components/Recent';
+import Recent from './src/components/Recent';
 
 const App = () => {
   const [activeHeader, setActiveHeader] = useState(0);
@@ -31,8 +31,13 @@ const App = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topSection}>
-        <Text style={styles.title}>BarBuddy</Text>
-        <Image source={require('./assets/logo.png')} />
+        <TouchableOpacity
+          key={'logo'}
+          onPress={() => setActiveHeader(0)}
+          style={styles.logoAndTitle}>
+          <Text style={styles.title}>BarBuddy</Text>
+          <Image source={require('./src/assets/logo.png')} />
+        </TouchableOpacity>
         <TextInput style={styles.searchBox} placeholder="Search..." />
       </View>
       <View style={styles.bottomSection}>
@@ -70,6 +75,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
+
+  logoAndTitle: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
   title: {
     fontSize: 24,
     fontWeight: 'bold',

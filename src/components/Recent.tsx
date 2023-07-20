@@ -1,30 +1,30 @@
 import React from 'react';
 import {View, Text, FlatList, StyleSheet, Dimensions} from 'react-native';
+import recipes from '../recipes/recipes.json';
 import RecipeCard from './RecipeCard';
 
-interface Item {
+interface Recipe {
   id: string;
   title: string;
+  description: string;
+  image: string | null;
+  ingredients: [];
+  instructions: string;
+  glass: string;
+  garnish: string;
+  category: string | null;
+  alcohol: string | null;
 }
-
-const data: Item[] = [
-  {id: '1', title: 'Item 1'},
-  {id: '2', title: 'Item 2'},
-  {id: '3', title: 'Item 3'},
-  {id: '4', title: 'Item 4'},
-  {id: '5', title: 'Item 5'},
-  {id: '6', title: 'Item 6'},
-  // ...more items
-];
 
 const numColumns = 2;
 const cardWidth = (Dimensions.get('window').width * 0.9) / numColumns;
 
 const RecentTab: React.FC = () => {
-  const renderItem = ({item}: {item: Item}) => (
+  const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
       title={item.title}
       onPress={() => console.log(`Navigating to details of ${item.title}`)}
+      image={item.image}
       cardWidth={cardWidth}
     />
   );
@@ -34,9 +34,9 @@ const RecentTab: React.FC = () => {
       <Text style={styles.title}>Recent</Text>
       <FlatList
         contentContainerStyle={styles.list}
-        data={data}
+        data={recipes}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         numColumns={numColumns}
       />
     </View>

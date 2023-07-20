@@ -1,0 +1,336 @@
+[
+  {
+    "id": 1,
+    "title": "Mojito",
+    "description": "A classic Cuban cocktail with refreshing mint and lime flavors.",
+    "image": "https://c1.wallpaperflare.com/preview/941/21/236/mojito-ron-bacardi.jpg",
+    "ingredients": [
+      {
+        "name": "white rum",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "fresh mint leaves",
+        "quantity": 8
+      },
+      {
+        "name": "lime",
+        "quantity": 1
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "soda water",
+        "quantity": 2,
+        "unit": "oz"
+      }
+    ],
+    "instructions": [
+      "Muddle mint leaves and lime wedges in a glass.",
+      "Add white rum and simple syrup, then fill the glass with ice.",
+      "Top with soda water and stir gently to combine.",
+      "Garnish with a mint sprig and lime wedge."
+    ],
+    "glass": "highball",
+    "garnish": "mint sprig and lime wedge",
+    "category": "classic",
+    "alcohol": "rum",
+    "servingSize": 1
+  },
+  {
+    "id": 2,
+    "title": "Margarita",
+    "description": "A refreshing Mexican cocktail made with tequila, lime juice, and orange liqueur.",
+    "image": "https://media.istockphoto.com/id/1264664106/photo/lime-margarita-cocktail-isolated-on-black-background.jpg?s=612x612&w=0&k=20&c=U0s1KrDu85H3waRY8yPNep0B_Mo9eV0D0kZMYxy02oc=",
+    "ingredients": [
+      {
+        "name": "tequila",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "orange liqueur",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "salt",
+        "quantity": "optional",
+        "unit": "rim"
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Rub the rim of a chilled glass with a lime wedge, then dip the rim into salt if desired.",
+      "In a shaker filled with ice, combine tequila, lime juice, and orange liqueur.",
+      "Shake well and strain into the prepared glass filled with ice.",
+      "Garnish with a lime wedge and serve."
+    ],
+    "glass": "rocks",
+    "garnish": "lime wedge",
+    "category": "classic",
+    "alcohol": "tequila",
+    "servingSize": 1
+  },
+  {
+    "id": 3,
+    "title": "Old Fashioned",
+    "description": "A classic cocktail made with whiskey, sugar, bitters, and a twist of citrusChatGPT",
+    "image": "https://thumbs.dreamstime.com/b/old-fashioned-cocktail-black-background-61735523.jpg",
+    "ingredients": [
+      {
+        "name": "whiskey",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "sugar cube",
+        "quantity": 1
+      },
+      {
+        "name": "bitters",
+        "quantity": 2,
+        "unit": "dashes"
+      },
+      {
+        "name": "orange slice",
+        "quantity": 1
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Place sugar cube in a glass and saturate it with bitters.",
+      "Add an orange slice and muddle until the sugar is dissolved.",
+      "Add whiskey and stir to combine.",
+      "Add ice and stir again until well chilled.",
+      "Garnish with an orange twist and serve."
+    ],
+    "glass": "rocks",
+    "garnish": "orange twist",
+    "category": "classic",
+    "alcohol": "whiskey",
+    "servingSize": 1
+  },
+  {
+    "id": 4,
+    "title": "Gin and Tonic",
+    "description": "A refreshing and easy-to-make cocktail made with gin, tonic water, and lime.",
+    "image": "https://c1.wallpaperflare.com/preview/228/508/50/summer-drink-cocktail-glass-hugo.jpg",
+    "ingredients": [
+      {
+        "name": "gin",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "tonic water",
+        "quantity": 4,
+        "unit": "oz"
+      },
+      {
+        "name": "lime wedge",
+        "quantity": 1
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill a glass with ice.",
+      "Add gin and tonic water, then stir gently to combine.",
+      "Squeeze a lime wedge over the top and drop it into the glass.",
+      "Serve and enjoy!"
+    ],
+    "glass": "highball",
+    "garnish": "lime wedge",
+    "category": "classic",
+    "alcohol": "gin",
+    "servingSize": 1
+  },
+  {
+    "id": 5,
+    "title": "Negroni",
+    "description": "A classic Italian cocktail made with gin, sweet vermouth, and Campari.",
+    "image": "https://img.freepik.com/premium-photo/negroni-cocktail-black-background_232060-2.jpg",
+    "ingredients": [
+      {
+        "name": "gin",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "sweet vermouth",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "Campari",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "orange twist",
+        "quantity": 1
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill a glass with ice.",
+      "Add gin, sweet vermouth, and Campari, then stir gently to combine.",
+      "Squeeze an orange twist over the top and drop it into the glass.",
+      "Serve and enjoy!"
+    ],
+    "glass": "rocks",
+    "garnish": "orange twist",
+    "category": "classic",
+    "alcohol": "gin",
+    "servingSize": 1
+  },
+  {
+    "id": 6,
+    "title": "Cosmopolitan",
+    "description": "A classic cocktail made with vodka, cranberry juice, lime juice, and triple sec.",
+    "image": "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/cosmopolitan-cocktail-in-front-of-a-black-background-ulrich-schade.jpg",
+    "ingredients": [
+      {
+        "name": "vodka",
+        "quantity": 1.5,
+        "unit": "oz"
+      },
+      {
+        "name": "cranberry juice",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "triple sec",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill a shaker with ice.",
+      "Add vodka, cranberry juice, lime juice, and triple sec, then shake well.",
+      "Strain into a chilled glass.",
+      "Garnish with a lime wheel and serve."
+    ],
+    "glass": "martini",
+    "garnish": "lime wheel",
+    "category": "classic",
+    "alcohol": "vodka",
+    "servingSize": 1
+  },
+  {
+    "id": 7,
+    "title": "Daiquiri",
+    "description": "A classic Cuban cocktail made with rum, lime juice, and simple syrup.",
+    "image": "https://media.istockphoto.com/id/119430209/photo/strawberry-daiquiri.jpg?s=612x612&w=0&k=20&c=roSBuzVq6-zYawkP-iK7b3jR_Zh_sVAi5zpNKO2iYIQ=",
+    "ingredients": [
+      {
+        "name": "white rum",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "lime juice",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.75,
+        "unit": "oz"
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill a shaker with ice.",
+      "Add white rum, lime juice, and simple syrup, then shake well.",
+      "Strain into a chilled glass.",
+      "Garnish with a lime wheel and serve."
+    ],
+    "glass": "coupe",
+    "garnish": "lime wheel",
+    "category": "classic",
+    "alcohol": "rum",
+    "servingSize": 1
+  },
+  {
+    "id": 8,
+    "title": "Whiskey Sour",
+    "description": "A classic cocktail made with whiskey, lemon juice, and simple syrup.",
+    "image": "https://thumbs.dreamstime.com/b/whiskey-sour-rocks-cocktail-served-isolated-black-background-garnished-orange-slice-maraschino-cherry-30872224.jpg",
+    "ingredients": [
+      {
+        "name": "whiskey",
+        "quantity": 2,
+        "unit": "oz"
+      },
+      {
+        "name": "lemon juice",
+        "quantity": 0.75,
+        "unit": "oz"
+      },
+      {
+        "name": "simple syrup",
+        "quantity": 0.75,
+        "unit": "oz"
+      },
+      {
+        "name": "orange slice",
+        "quantity": 1
+      },
+      {
+        "name": "cherry",
+        "quantity": 1
+      },
+      {
+        "name": "ice",
+        "quantity": "as needed"
+      }
+    ],
+    "instructions": [
+      "Fill a shaker with ice.",
+      "Add whiskey, lemon juice, and simple syrup, then shake well.",
+      "Strain into a chilled glass filled with ice.",
+      "Garnish with an orange slice and a cherry.",
+      "Serve and enjoy!"
+    ],
+    "glass": "rocks",
+    "garnish": "orange slice and cherry",
+    "category": "classic",
+    "alcohol": "whiskey",
+    "servingSize": 1
+  }
+]
