@@ -16,7 +16,7 @@ const cardWidth = (Dimensions.get('window').width * 0.9) / numColumns;
 
 const dbHelper = new DBHelper();
 
-const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
+const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
   const [displayCount, setDisplayCount] = useState(6);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
@@ -57,7 +57,7 @@ const RecentTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recent</Text>
+      <Text style={styles.title}>My Recipes</Text>
       <FlatList
         contentContainerStyle={styles.list}
         data={filteredRecipes.slice(0, displayCount)}
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecentTab;
+export default MyRecipesTab;

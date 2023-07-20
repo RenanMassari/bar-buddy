@@ -12,6 +12,7 @@ import recipes from './src/recipes/recipes.json';
 import DBHelper from './src/recipes/dbHelper';
 
 import Recent from './src/components/Recent';
+import MyRecipes from './src/components/MyRecipes';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -78,7 +79,7 @@ const MainApp = () => {
       case 0:
         return <Recent searchQuery={searchQuery} />;
       case 1:
-        return <Text>Content 2</Text>;
+        return <MyRecipes searchQuery={searchQuery} />;
       case 2:
         return <Text>Content 3</Text>;
       case 3:
@@ -116,7 +117,7 @@ const MainApp = () => {
       </View>
       <View style={styles.bottomSection}>
         <View style={styles.headerContainer}>
-          {['Recent', 'Header 2', 'Header 3', 'Header 4'].map(
+          {['Recent', 'My Recipes', 'Header 3', 'Header 4'].map(
             (header, index) => (
               <TouchableOpacity
                 key={header}
