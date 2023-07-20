@@ -171,6 +171,7 @@ const AddRecipe = ({navigation, route}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 70}
       style={styles.container}>
       <ScrollView style={styles.container}>
         <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
@@ -226,6 +227,7 @@ const AddRecipe = ({navigation, route}: Props) => {
         ))}
         <TextInput
           placeholder="Add a step"
+          multiline
           value={instructionStep}
           onChangeText={setInstructionStep}
           style={styles.input}
@@ -277,6 +279,11 @@ const styles = StyleSheet.create({
   ingredient: {
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 40,
   },
 });
 
