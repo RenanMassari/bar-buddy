@@ -118,7 +118,14 @@ const AddRecipe = ({navigation, route}) => {
     <ScrollView style={styles.container}>
       <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
         {imageUri ? (
-          <Image source={{uri: imageUri}} style={{width: 100, height: 100}} /> // set your desired dimensions
+          <>
+            <Image source={{uri: imageUri}} style={{width: 150, height: 150}} />
+            <TouchableOpacity
+              onPress={() => setImageUri('')}
+              style={{position: 'absolute', top: 0, right: 0}}>
+              <Icon name={'times'} size={20} color={'#000'} />
+            </TouchableOpacity>
+          </>
         ) : (
           <>
             <Icon name={'image'} size={50} color={'#000'} />

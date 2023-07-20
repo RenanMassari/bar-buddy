@@ -36,7 +36,7 @@ dbHelper
           recipe.title,
           recipe.image,
           JSON.stringify(recipe.ingredients), // Convert ingredients array to string
-          recipe.instructions.toString(),
+          recipe.instructions.join('\n'),
         )
         .then(() => console.log(`Recipe ${recipe.title} inserted`))
         .catch(error =>
