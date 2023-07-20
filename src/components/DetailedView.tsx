@@ -37,9 +37,9 @@ const DetailedView = ({route}) => {
       <Image source={{uri: item.image}} style={styles.image} />
       <View style={{flex: 1, alignSelf: 'stretch'}}>
         <Tab.Navigator
-          tabBarOptions={{
-            indicatorStyle: {backgroundColor: 'black'},
-            labelStyle: {fontWeight: 'bold'},
+          screenOptions={{
+            tabBarIndicatorStyle: {backgroundColor: 'black'},
+            tabBarLabelStyle: {fontWeight: 'bold'},
           }}>
           <Tab.Screen
             name="Ingredients"

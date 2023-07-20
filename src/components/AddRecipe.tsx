@@ -115,6 +115,8 @@ const AddRecipe = ({navigation, route}) => {
         value={instructions}
         onChangeText={setInstructions}
         style={styles.input}
+        multiline={true}
+        numberOfLines={6}
       />
       <TextInput
         placeholder="Garnish"
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    height: 40,
+    minHeight: 40,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 10,
