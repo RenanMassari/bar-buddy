@@ -1,29 +1,34 @@
-import React, {useEffect, useRef, useState, useCallback} from 'react';
-import ImagePicker from 'react-native-image-crop-picker';
+import React, {useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import {
-  ScrollView,
-  View,
-  TextInput,
   Button,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  PermissionsAndroid,
   Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import DBHelper from '../recipes/dbHelper';
 import DocumentPicker from 'react-native-document-picker';
 
 type RootStackParamList = {
   Home: undefined;
-  AddRecipe: { newIngredient?: string; updatedIngredient?: string; index?: number };
+  AddRecipe: {
+    newIngredient?: string;
+    updatedIngredient?: string;
+    index?: number;
+  };
 };
 
-type AddRecipeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'AddRecipe'>;
+type AddRecipeScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'AddRecipe'
+>;
 type AddRecipeScreenRouteProp = RouteProp<RootStackParamList, 'AddRecipe'>;
 
 type Props = {
@@ -45,7 +50,7 @@ const AddRecipe = ({navigation, route}: Props) => {
   const instructionsInputRef = useRef();
 
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    return navigation.addListener('focus', () => {
       if (route.params?.newIngredient) {
         setIngredients(prevIngredients => {
           if (route.params.newIngredient) {
@@ -58,8 +63,12 @@ const AddRecipe = ({navigation, route}: Props) => {
         setIngredients(prevIngredients => {
           const newIngredients = [...prevIngredients];
           if (route.params.index !== undefined) {
-            if (route.params.updatedIngredient !== undefined && route.params.index !== undefined) {
-              newIngredients[route.params.index] = route.params.updatedIngredient;
+            if (
+              route.params.updatedIngredient !== undefined &&
+              route.params.index !== undefined
+            ) {
+              newIngredients[route.params.index] =
+                route.params.updatedIngredient;
             }
           }
           return newIngredients;
@@ -67,8 +76,6 @@ const AddRecipe = ({navigation, route}: Props) => {
         navigation.setParams({updatedIngredient: undefined, index: undefined});
       }
     });
-
-    return unsubscribe;
   }, [
     navigation,
     route.params?.newIngredient,
@@ -78,21 +85,14 @@ const AddRecipe = ({navigation, route}: Props) => {
   const handleAddIngredient = () => {
     navigation.navigate('AddIngredient', {});
   };
-  
+
   const handleEditIngredient = (ingredient: string, index: number) => {
-    navigation.navigate('AddIngredient', { ingredient, index });
+    navigation.navigate('AddIngredient', {ingredient, index});
   };
 
   const addInstructionStep = () => {
     if (editIndex !== null) {
-      const updateInstruction = (instructionStep: string) => {
-        if (editIndex !== null) {
-          const updatedInstructions: string[] = [...instructions];
-          updatedInstructions[editIndex] = instructionStep;
-          setInstructions(updatedInstructions);
-          setEditIndex(null);
-        }
-      };
+      const updatedInstructions = [...instructions]; // Create a copy of instructions
       updatedInstructions[editIndex] = instructionStep;
       setInstructions(updatedInstructions);
       setEditIndex(null);
@@ -102,7 +102,7 @@ const AddRecipe = ({navigation, route}: Props) => {
     setInstructionStep('');
   };
 
-  const editInstructionStep = index => {
+  const editInstructionStep = (index: number) => {
     setInstructionStep(instructions[index]);
     setEditIndex(index);
   };
