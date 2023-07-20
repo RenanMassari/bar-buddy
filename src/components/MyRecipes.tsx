@@ -12,7 +12,7 @@ import {
 
 import DocumentPicker from 'react-native-document-picker';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import RecipeCard from './RecipeCard';
@@ -53,6 +53,22 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
       recipe.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
+
+  // To refresh recipes whenever the screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchRecipes = async () => {
+        dbHelper
+          .getAllRecipes()
+          .then(data => {
+            setRecipes(data);
+          })
+          .catch(error => console.error('Error fetching recipes:', error));
+      };
+
+      fetchRecipes();
+    }, []),
+  );
 
   const deleteRecipe = (id: string) => {
     Alert.alert(

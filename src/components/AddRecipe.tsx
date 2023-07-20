@@ -40,24 +40,20 @@ type Props = {
 };
 
 const AddRecipe = ({navigation, route}: Props) => {
-  // initialize state using route.params.recipeToEdit if it exists
-  const [title, setTitle] = useState(route.params?.recipeToEdit?.title || '');
-  const [ingredients, setIngredients] = useState(
-    route.params?.recipeToEdit?.ingredients
-      ? JSON.parse(route.params?.recipeToEdit?.ingredients)
-      : [],
-  );
-
-  const [instructions, setInstructions] = useState(
-    route.params?.recipeToEdit?.instructions.split('\n') || [],
-  );
-  const [imageUri, setImageUri] = useState(
-    route.params?.recipeToEdit?.image || '',
-  );
-
   const [recipeToEdit, setRecipeToEdit] = useState<Recipe | undefined>(
     route.params?.recipeToEdit,
   );
+
+  // initialize state using route.params.recipeToEdit if it exists
+  const [title, setTitle] = useState(recipeToEdit.title || '');
+  const [ingredients, setIngredients] = useState(
+    recipeToEdit.ingredients ? JSON.parse(recipeToEdit.ingredients) : [],
+  );
+
+  const [instructions, setInstructions] = useState(
+    recipeToEdit.instructions.split('\n') || [],
+  );
+  const [imageUri, setImageUri] = useState(recipeToEdit.image || '');
 
   const [instructionStep, setInstructionStep] = useState('');
   const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -118,8 +114,6 @@ const AddRecipe = ({navigation, route}: Props) => {
   };
 
   const handleSubmit = async () => {
-    console.log('route.params?.recipeToEdit:', route.params?.recipeToEdit);
-    console.log('recipeToEdit:', recipeToEdit);
     const dbHelper = new DBHelper();
     await dbHelper.initDB();
 
@@ -128,7 +122,7 @@ const AddRecipe = ({navigation, route}: Props) => {
 
     if (recipeToEdit) {
       // we are editing an existing recipe
-      const {id} = route.params.recipeToEdit;
+      const {id} = recipeToEdit;
       dbHelper
         .updateRecipe(
           id,
@@ -138,9 +132,6 @@ const AddRecipe = ({navigation, route}: Props) => {
           instructionsString,
         )
         .then(() => {
-          console.log(
-            'Updating recipe with id: ' + id + ' and title: ' + title,
-          );
           navigation.goBack();
         })
         .catch(error => {
@@ -241,13 +232,15 @@ const AddRecipe = ({navigation, route}: Props) => {
           onSubmitEditing={addInstructionStep}
           blurOnSubmit={false}
         />
-        <Button
-          title={'Delete Last Step'}
-          onPress={() => setInstructions(instructions.slice(0, -1))}
-          disabled={instructions.length === 0}
-        />
-        <Button title="Add Step" onPress={addInstructionStep} />
-        <Button title="Submit" onPress={handleSubmit} />
+        <View style={styles.buttonContainer}>
+          <Button
+            title={'Delete Last Step'}
+            onPress={() => setInstructions(instructions.slice(0, -1))}
+            disabled={instructions.length === 0}
+          />
+          <Button title="Add Step" onPress={addInstructionStep} />
+          <Button title="Submit" onPress={handleSubmit} />
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -282,9 +275,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   ingredient: {
-    // padding: 10,
     backgroundColor: '#f0f0f0',
-    // marginBottom: 10,
     borderRadius: 5,
   },
 });
