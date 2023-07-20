@@ -99,6 +99,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     try {
       const response = await DocumentPicker.pick({
         presentationStyle: 'fullScreen',
+        type: 'application/json',
       });
 
       console.log(response);
@@ -110,6 +111,8 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
       const jsonContent = JSON.parse(fileContent);
 
       setFileResponse(jsonContent);
+
+      // TODO: Insert the recipes to the database
 
       console.log(fileResponse); // this will print the parsed JSON content
     } catch (err) {

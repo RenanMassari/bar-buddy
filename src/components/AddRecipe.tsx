@@ -11,8 +11,10 @@ import {
   Text,
   StyleSheet,
   PermissionsAndroid,
+  Image,
 } from 'react-native';
 import DBHelper from '../recipes/dbHelper';
+import DocumentPicker from 'react-native-document-picker';
 
 const AddRecipe = ({navigation, route}) => {
   const [title, setTitle] = useState('');
@@ -21,6 +23,7 @@ const AddRecipe = ({navigation, route}) => {
   const [instructions, setInstructions] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [image, setImage] = useState('');
+  const [imageUri, setImageUri] = useState('');
 
   // Keeps track of which step of the instructions the user is on
   const [step, setStep] = useState(2);
@@ -76,73 +79,6 @@ const AddRecipe = ({navigation, route}) => {
     setEditIndex(index);
   };
 
-  const requestGalleryPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'Cool Photo App Camera Permission',
-          message:
-            'Cool Photo App needs access to your camera ' +
-            'so you can take awesome pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      console.log(granted);
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera');
-        return true;
-      } else {
-        console.log('Camera permission denied');
-        return false;
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  const requestCameraPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'Cool Photo App Camera Permission',
-          message:
-            'Cool Photo App needs access to your camera ' +
-            'so you can take awesome pictures.',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      console.log(granted);
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('You can use the camera');
-        return true;
-      } else {
-        console.log('Camera permission denied');
-        return false;
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-  const handleChoosePhoto = async () => {
-    const permission = await requestGalleryPermission();
-    console.log(`permission: ${permission}`);
-    if (permission) {
-      ImagePicker.openPicker({
-        width: 300,
-        height: 400,
-        cropping: true,
-      }).then(image => {
-        setImage(image.path);
-      });
-    }
-  };
-
   const handleSubmit = async () => {
     const dbHelper = new DBHelper();
     await dbHelper.initDB();
@@ -166,17 +102,30 @@ const AddRecipe = ({navigation, route}) => {
       });
   };
 
+  const getImage = async () => {
+    try {
+      const response = await DocumentPicker.pick({
+        presentationStyle: 'fullScreen',
+        type: ['image/*'],
+      });
+      setImageUri(response[0].uri);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
-      <Icon
-        name={'image'}
-        size={30}
-        color={'#000'}
-        onPress={() => {
-          // requestGalleryPermission().then(r => console.log(r));
-          handleChoosePhoto();
-        }}
-      />
+      <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
+        {imageUri ? (
+          <Image source={{uri: imageUri}} style={{width: 100, height: 100}} /> // set your desired dimensions
+        ) : (
+          <>
+            <Icon name={'image'} size={50} color={'#000'} />
+            <Text>Add Image</Text>
+          </>
+        )}
+      </TouchableOpacity>
       <TextInput
         placeholder="Cocktail Name"
         value={title}
@@ -196,7 +145,6 @@ const AddRecipe = ({navigation, route}) => {
         ))}
       </View>
       <Button title="Add Ingredient" onPress={handleAddIngredient} />
-      <Button title="Camera" onPress={requestCameraPermission} />
       <Text>Instructions</Text>
       {instructions.map((instruction, index) => (
         <TouchableOpacity
@@ -230,6 +178,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+
+  imageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '40%',
+    justifyContent: 'space-around',
+    alignSelf: 'center',
   },
   input: {
     minHeight: 40,
