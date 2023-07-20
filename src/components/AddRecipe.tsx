@@ -56,6 +56,7 @@ const AddRecipe = ({navigation, route}: Props) => {
 
   const [instructionStep, setInstructionStep] = useState('');
   const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [stepButtonName, setStepButtonName] = useState('Add Step');
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -97,6 +98,7 @@ const AddRecipe = ({navigation, route}: Props) => {
 
   const addInstructionStep = () => {
     if (editIndex !== null) {
+      setStepButtonName('Edit Step');
       const updatedInstructions = [...instructions]; // Create a copy of instructions
       updatedInstructions[editIndex] = instructionStep;
       setInstructions(updatedInstructions);
@@ -239,7 +241,7 @@ const AddRecipe = ({navigation, route}: Props) => {
             onPress={() => setInstructions(instructions.slice(0, -1))}
             disabled={instructions.length === 0}
           />
-          <Button title="Add Step" onPress={addInstructionStep} />
+          <Button title={stepButtonName} onPress={addInstructionStep} />
           <Button title="Submit" onPress={handleSubmit} />
         </View>
       </ScrollView>

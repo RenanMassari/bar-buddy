@@ -4,7 +4,7 @@ export default interface Recipe {
   description: string;
   image: string;
   ingredients: [];
-  instructions: string;
+  instructions: [];
   glass: string;
   garnish: string;
   category: string | null;

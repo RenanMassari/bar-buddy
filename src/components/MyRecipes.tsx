@@ -34,7 +34,6 @@ const dbHelper = new DBHelper();
 const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
   const [displayCount, setDisplayCount] = useState(6);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [fileResponse, setFileResponse] = useState([]);
 
   useEffect(() => {
     dbHelper.initDB().then(() => {
@@ -157,7 +156,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
           recipe.title,
           recipe.image,
           JSON.stringify(recipe.ingredients),
-          recipe.instructions,
+          recipe.instructions.join('\n'),
         );
       }
       const data = await dbHelper.getAllRecipes();
