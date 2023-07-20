@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -148,69 +149,78 @@ const AddRecipe = ({navigation, route}: Props) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
-        {imageUri ? (
-          <>
-            <Image source={{uri: imageUri}} style={{width: 150, height: 150}} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
+      <ScrollView style={styles.container}>
+        <TouchableOpacity style={styles.imageContainer} onPress={getImage}>
+          {imageUri ? (
+            <>
+              <Image
+                source={{uri: imageUri}}
+                style={{width: 150, height: 150}}
+              />
+              <TouchableOpacity
+                onPress={() => setImageUri('')}
+                style={{position: 'absolute', top: 0, right: 0}}>
+                <Icon name={'times'} size={20} color={'#000'} />
+              </TouchableOpacity>
+            </>
+          ) : (
+            <>
+              <Icon name={'image'} size={50} color={'#000'} />
+              <Text>Add Image</Text>
+            </>
+          )}
+        </TouchableOpacity>
+        <TextInput
+          placeholder="Cocktail Name"
+          value={title}
+          onChangeText={setTitle}
+          style={styles.input}
+        />
+        <Text>Ingredients</Text>
+        <View style={styles.ingredientContainer}>
+          {ingredients.map((ingredient, index) => (
             <TouchableOpacity
-              onPress={() => setImageUri('')}
-              style={{position: 'absolute', top: 0, right: 0}}>
-              <Icon name={'times'} size={20} color={'#000'} />
+              key={index}
+              onPress={() => handleEditIngredient(ingredient, index)}>
+              <Text style={styles.ingredient}>
+                {`${ingredient.name} ${ingredient.quantity}${
+                  ingredient.unit ? ` ${ingredient.unit}` : ''
+                }`}
+              </Text>
             </TouchableOpacity>
-          </>
-        ) : (
-          <>
-            <Icon name={'image'} size={50} color={'#000'} />
-            <Text>Add Image</Text>
-          </>
-        )}
-      </TouchableOpacity>
-      <TextInput
-        placeholder="Cocktail Name"
-        value={title}
-        onChangeText={setTitle}
-        style={styles.input}
-      />
-      <Text>Ingredients</Text>
-      <View style={styles.ingredientContainer}>
-        {ingredients.map((ingredient, index) => (
+          ))}
+        </View>
+        <Button title="Add Ingredient" onPress={handleAddIngredient} />
+        <Text>Instructions</Text>
+        {instructions.map((instruction, index) => (
           <TouchableOpacity
             key={index}
-            onPress={() => handleEditIngredient(ingredient, index)}>
-            <Text style={styles.ingredient}>
-              {`${ingredient.name} ${ingredient.quantity} ${ingredient.unit}`}
+            onPress={() => editInstructionStep(index)}>
+            <Text>
+              {index + 1}. {instruction}
             </Text>
           </TouchableOpacity>
         ))}
-      </View>
-      <Button title="Add Ingredient" onPress={handleAddIngredient} />
-      <Text>Instructions</Text>
-      {instructions.map((instruction, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => editInstructionStep(index)}>
-          <Text>
-            {index + 1}. {instruction}
-          </Text>
-        </TouchableOpacity>
-      ))}
-      <TextInput
-        placeholder="Add a step"
-        value={instructionStep}
-        onChangeText={setInstructionStep}
-        style={styles.input}
-        onSubmitEditing={addInstructionStep}
-        blurOnSubmit={false}
-      />
-      <Button
-        title={'Delete Last Step'}
-        onPress={() => setInstructions(instructions.slice(0, -1))}
-        disabled={instructions.length === 0}
-      />
-      <Button title="Add Step" onPress={addInstructionStep} />
-      <Button title="Submit" onPress={handleSubmit} />
-    </ScrollView>
+        <TextInput
+          placeholder="Add a step"
+          value={instructionStep}
+          onChangeText={setInstructionStep}
+          style={styles.input}
+          onSubmitEditing={addInstructionStep}
+          blurOnSubmit={false}
+        />
+        <Button
+          title={'Delete Last Step'}
+          onPress={() => setInstructions(instructions.slice(0, -1))}
+          disabled={instructions.length === 0}
+        />
+        <Button title="Add Step" onPress={addInstructionStep} />
+        <Button title="Submit" onPress={handleSubmit} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
