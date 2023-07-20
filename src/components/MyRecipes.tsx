@@ -98,7 +98,15 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     try {
       await dbHelper.initDB();
       for (const recipe of recipes) {
-        if (!recipe || !recipe.instructions || !recipe.title) {
+        // Check if the recipe has all the required fields
+        if (
+          !recipe ||
+          !recipe.instructions ||
+          !recipe.title ||
+          !recipe.image ||
+          !recipe.ingredients
+        ) {
+          console.log(`Recipe ${recipe.title} is missing some fields}`);
           continue;
         }
         await dbHelper.insertRecipe(
