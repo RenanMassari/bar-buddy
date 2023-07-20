@@ -26,6 +26,10 @@ type RootStackParamList = {
     index?: number;
     recipeToEdit?: Recipe;
   };
+  AddIngredient: {
+    ingredient?: string;
+    index?: number;
+  };
 };
 
 type AddRecipeScreenNavigationProp = StackNavigationProp<
@@ -40,9 +44,7 @@ type Props = {
 };
 
 const AddRecipe = ({navigation, route}: Props) => {
-  const [recipeToEdit, setRecipeToEdit] = useState<Recipe | undefined>(
-    route.params?.recipeToEdit,
-  );
+  const recipeToEdit = route.params?.recipeToEdit;
 
   // initialize state using route.params.recipeToEdit if it exists
   const [title, setTitle] = useState(recipeToEdit?.title || '');
@@ -62,7 +64,7 @@ const AddRecipe = ({navigation, route}: Props) => {
   useEffect(() => {
     return navigation.addListener('focus', () => {
       if (route.params?.newIngredient) {
-        setIngredients(prevIngredients => {
+        setIngredients((prevIngredients: any) => {
           if (route.params.newIngredient) {
             return [...prevIngredients, route.params.newIngredient];
           }
@@ -70,7 +72,7 @@ const AddRecipe = ({navigation, route}: Props) => {
         });
         navigation.setParams({newIngredient: undefined});
       } else if (route.params?.updatedIngredient !== undefined) {
-        setIngredients(prevIngredients => {
+        setIngredients((prevIngredients: any) => {
           const newIngredients = [...prevIngredients];
           if (route.params.index !== undefined) {
             if (route.params.updatedIngredient !== undefined) {
@@ -209,7 +211,7 @@ const AddRecipe = ({navigation, route}: Props) => {
         />
         <Text>Ingredients</Text>
         <View style={styles.ingredientContainer}>
-          {ingredients.map((ingredient, index) => (
+          {ingredients.map((ingredient, index: number) => (
             <TouchableOpacity
               key={index}
               onPress={() => handleEditIngredient(ingredient, index)}>
@@ -223,7 +225,7 @@ const AddRecipe = ({navigation, route}: Props) => {
         </View>
         <Button title="Add Ingredient" onPress={handleAddIngredient} />
         <Text>Instructions</Text>
-        {instructions.map((instruction, index) => (
+        {instructions.map((instruction: string, index: number) => (
           <TouchableOpacity
             key={index}
             onPress={() => editInstructionStep(index)}>

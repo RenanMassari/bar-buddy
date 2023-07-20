@@ -21,6 +21,7 @@ import DBHelper from '../recipes/dbHelper';
 import Recipe from '../classes/Recipe';
 
 import RNFS from 'react-native-fs';
+import {NativeStackNavigationProp} from 'react-native-screens/native-stack';
 
 interface RecentProps {
   searchQuery: string;
@@ -111,7 +112,7 @@ const MyRecipesTab: React.FC<RecentProps> = ({searchQuery = ''}) => {
     }
   };
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const renderItem = ({item}: {item: Recipe}) => (
     <RecipeCard
       title={item.title}
